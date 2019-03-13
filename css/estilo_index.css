@@ -1,0 +1,101 @@
+html{
+    position:relative;
+    min-height: 100%;
+}
+.cabecera{
+  height: auto;
+  /*background-color: #585858;*/
+  text-align: center;
+  text-decoration-color: white;
+  font-family: "Verdana";
+  font-size: 24px;
+  padding: 18px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.todo{
+	width: 80%;
+}
+
+.seccion{
+	padding-top: 60px;
+  width: 80%;
+}
+
+.icon-menu-init{
+    width: 140px;
+    height: 140px;
+    background-color: rgb(110,110,110);
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    vertical-align: middle;
+}
+.ficha{
+  width: 90%;
+}
+.tabla-per th{
+	color:#87186B;
+}
+
+.tabla-per.table-hover tbody tr:hover td, .tabla-per.table-hover tbody tr:hover th {
+  background-color: rgba(220,137,199,0.1); ;
+}
+
+.tabla-ed th{
+  color:#6A8FB1;
+}
+
+.tabla-ed.table-hover tbody tr:hover td, .tabla-ed.table-hover tbody tr:hover th {
+  background-color: rgba(162,192,220,0.1); ;
+}
+
+.tabla-edit th{
+	color:#088A08;
+}
+
+.tabla-edit.table-hover tbody tr:hover td, .tabla-edit.table-hover tbody tr:hover th {
+  background-color: rgba(149,218,149,0.1); ;
+}
+
+.tabla-inst th{
+  color:#AEB404;
+}
+
+.tabla-inst.table-hover tbody tr:hover td, .tabla-inst.table-hover tbody tr:hover th {
+  background-color: rgba(228,230,167,0.1); ;
+}
+
+.input-adaptable{
+	 resize: vertical;
+}
+
+.bot-pers{
+  margin-bottom: 2px;
+  margin-right: 2px;
+  height: 25px;
+  width: 25px;
+  padding: 1px;
+}
+
+.icono-inicio{
+  float: right;
+}
+
+.well{
+  text-align: center;
+}
+
+footer{
+	background-color: #222;
+ 	position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  color: #CCC;
+  text-align: center;
+  display: block;
+}
