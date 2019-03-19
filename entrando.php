@@ -1,5 +1,5 @@
 <?php
-require './datos/modelo.php';
+require './datos/modelo/global.php';
 $fallo = $_GET['fallo'];
 if (isset($_COOKIE["bordes"])) {
   $credenciales = explode('#',$_COOKIE["bordes"]);

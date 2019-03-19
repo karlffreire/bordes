@@ -1,12 +1,11 @@
  <?php
-require './datos/modelo.php';
-$credenciales = explode('#',$_COOKIE["bordes"]);
-session_start();
-if (!isset($_COOKIE["bordes"]) || $_SESSION['proyecto'] != 'bordes') {
+require './datos/modelo/conexion.php';
+$credenciales = explode('#',$_COOKIE["bordesarch"]);
+if (!isset($_COOKIE["bordesarch"]) || $_SESSION['proyecto'] != 'bordes') {
   header('location:./entrando.php');
 }
 $menda = filter_var($credenciales[0], FILTER_SANITIZE_STRING);
-$grupos = miembroDe($menda);
+$grupos = ConBD::miembroDe($menda);
 $_SESSION["editor"] = false;
 foreach ($grupos as $grupo) {
   if ($grupo == 'editor_bordes'){
@@ -56,27 +55,23 @@ $edit = $_SESSION["editor"];
       </div>
       <h2>Personas</h2>
       <p>Visualizar y gestionar la información de personas incluidas en la base de datos.</p>
-      <p><a class="btn btn-default" href="./personas.php" role="button">Personas externas</a></p>
-      <p><a class="btn btn-default" href="./autoras.php" role="button">Autoras</a></p>
-      <p><a class="btn btn-default" href="./editores.php" role="button">Editores</a></p>
+      <p><a class="btn btn-default" href="./personas.php" role="button">Personas</a></p>
     </div>
     <div class="col-lg-4">
       <div class="icon-menu-init">
-        <i class="fa fa-book fa-4x" style="margin-top:40px;"></i>
+        <i class="fa fa-envelope fa-4x" style="margin-top:40px;"></i>
       </div>
-      <h2>Mundo editorial</h2>
-      <p>Visualizar y gestionar la información de empresas relacionadas con el mundo de la edición y de colecciones de obras incluidas en la base de datos.</p><p>También se inncluyen obras sin depósito legal, cuya referencia no es posible obtener a través de un sistema externo.</p>
-      <p><a class="btn btn-default" href="./editoriales.php" role="button">Empresas de edición</a></p>
-      <p><a class="btn btn-default" href="./colecciones.php?origen=index&editorial=" role="button">Colecciones</a></p>
-      <p><a class="btn btn-default" href="./obrassindl.php?origen=index&autora=" role="button">Obras sin depósito</a></p>
+      <h2>Cartas</h2>
+      <p>Visualizar y gestionar la información de las cartas incluidas en la base de datos.</p>
+      <p><a class="btn btn-default" href="./cartas.php" role="button">Cartas</a></p>
     </div>
     <div class="col-lg-4">
       <div class="icon-menu-init">
         <i class="fa fa-map-signs fa-4x" style="margin-top:40px;"></i>
       </div>
-      <h2>Actividades</h2>
-      <p>Visualizar y gestionar la información de diferentes actividades y organizaciones relacionadas con la vida personal e institucional de las personas incluidas en la base de datos.</p>
-      <p><a class="btn btn-default" href="./actividades.php" role="button">Actividades</a></p>
+      <h2>Viajes</h2>
+      <p>Visualizar y gestionar la información de los viajes incluidos en la base de datos.</p>
+      <p><a class="btn btn-default" href="./viajes.php" role="button">Viajes</a></p>
     </div>
   </div>
 </div>
