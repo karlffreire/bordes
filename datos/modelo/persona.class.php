@@ -1,6 +1,6 @@
 <?php
 class Persona{
-  public $idpersona;
+  public $idpersonas;
   public $nombre;
   public $apellidos;
   public $nacionalidad;
@@ -10,11 +10,11 @@ class Persona{
   public $lugarnacimiento;
   public $fechadefuncion;
   public $lugardefuncion;
-  public $objetos;
   public $urlimagen;
   public $confianzafechanacimiento;
   public $confianzafechadefuncion;
   public $tipopersona;
+  private $objetos;
   private $ejerce;
   private $ostenta;
   private $titulos;
@@ -25,7 +25,7 @@ class Persona{
       $sentencia = $mbd->prepare("select nextval('datos.personas_idpersonas_seq'::regclass);");
       $sentencia->execute();
       $mbd = null;
-      $this->idpersona = $sentencia->fetch()['nextval'];
+      $this->idpersonas = $sentencia->fetch()['nextval'];
     }
     if ($arrprop) {
       $this->nombre = (isset($arrprop['nombre'])) ? $arrprop['nombre'] : NULL;
@@ -43,6 +43,36 @@ class Persona{
       $this->confianzafechadefuncion = (isset($arrprop['confianzafechadefuncion'])) ? $arrprop['confianzafechadefuncion'] : NULL;
       $this->tipopersona = (isset($arrprop['tipopersona'])) ? $arrprop['tipopersona'] : NULL;
     }
+  }
+  function almacena(){
+    $arrprop;
+    foreach ($this as $nombre => $valor) {
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'objetos') { //esto hay que introducirlo utilizando su método
+        if ($valor) {
+          if ($nombre == 'palabrasclave' && is_array($valor)) {
+            $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
+          }
+          else{
+            $arrprop[strtolower($nombre)] = $valor;
+          }
+        }
+      }
+     }
+    OperaBD::inserta('datos.personas',$arrprop);
+  }
+  function modifica(){
+    $arrprop;
+    foreach ($this as $nombre => $valor) {
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'objetos') {
+         $arrprop[strtolower($nombre)] = $valor;
+      }
+     }
+     $cual = array('idpersonas'=>$this->idpersonas);
+    OperaBD::modifica('datos.personas',$arrprop,$cual);
+  }
+  function borra(){
+     $cual = array('idpersonas'=>$this->idpersonas);
+    OperaBD::borra('datos.personas',$cual);
   }
 
 }
