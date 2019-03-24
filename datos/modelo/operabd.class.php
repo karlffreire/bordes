@@ -94,9 +94,10 @@ class OperaBD {
    * @param  array $arrprop Array de campos a solicitar
    * @param  string $clase Nombre de la clase a instanciar. Si no se proporciona, se devolverá un array normal, en lugar de un array de objetos
    * @param  array $where Array asociativo de columna y condicion. Cláusula de filtro. Si no está presente,se seleccionará todo. Siempre utiliza el operador AND para unir las claúsulas
+   * @param  array $orden Array de campos para ordenar
    * @return array Array de objetos encontrados
    */
-  static function selec ($tabla,$arrprop,$clase = null,$where = null){
+  static function selec ($tabla,$arrprop,$clase = null,$where = null, $orden = null){
     $lstcamp;
     foreach ($arrprop as $key => $value) {
       $lstcamp[] = $value;

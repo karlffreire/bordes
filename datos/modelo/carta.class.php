@@ -15,7 +15,7 @@ class Carta {
   public $observacioneshonra;
   public $urlimagen;
   private $objetos;
-  private $mercanciasybienes;
+  private $mercanciassolicitadas;
   private $tramiteslegales;
   function __construct($nuevo = false, $arrprop = false) {
     if ($nuevo) {
@@ -43,7 +43,7 @@ class Carta {
    function almacena(){
      $arrprop;
      foreach ($this as $nombre => $valor) {
-       if ($nombre != 'mercanciasybienes' && $nombre != 'objetos') { //esto hay que introducirlo utilizando su método
+       if ($nombre != 'mercanciassolicitadas' && $nombre != 'objetos') { //esto hay que introducirlo utilizando su método
          if ($valor) {
            if ($nombre == 'palabrasclave' && is_array($valor)) {
              $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
@@ -59,7 +59,7 @@ class Carta {
    function modifica(){
      $arrprop;
      foreach ($this as $nombre => $valor) {
-       if ($nombre != 'mercanciasybienes' && $nombre != 'objetos' && $nombre != 'idcartas') {
+       if ($nombre != 'mercanciassolicitadas' && $nombre != 'objetos' && $nombre != 'idcartas') {
           $arrprop[strtolower($nombre)] = $valor;
        }
       }

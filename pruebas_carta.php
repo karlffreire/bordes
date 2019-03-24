@@ -8,7 +8,8 @@ require './datos/modelo/operabd.class.php';
 //   'identificador' => 786,
 //   'pagina' => 54,
 //   'asunto' => 'Prueba constructor con array',
-//
+//   'asuntoclave' => 'Prueba',
+//   'lugaremision' => 1
 // );
 //  $carta1 = new Carta(true,$arrprop);
 
@@ -27,10 +28,10 @@ require './datos/modelo/operabd.class.php';
  //$carta1->almacena();
 
 //SELECCION DE UNA CARTA CON VARIOS ATRIBUTOS
-// $arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','pagina','asunto','palabrasclave','identificador');
-//  $where = array('idcartas' => 82);
-//  $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
-//var_dump($prueba);
+$arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','pagina','asunto','palabrasclave','identificador');
+ $where = array('idcartas' => 4);
+ $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
+var_dump($prueba);
 
 //Y MODIFICACIÓN DE LA CARTA SELECCIONADA
  // $prueba->numeroregistro = 'prueba modificada otra vez';
