@@ -14,7 +14,7 @@ class Persona{
   public $confianzafechanacimiento;
   public $confianzafechadefuncion;
   public $tipopersona;
-  private $objetos;
+  private $propiedades;
   private $ejerce;
   private $ostenta;
   private $titulos;
@@ -37,7 +37,7 @@ class Persona{
       $this->lugarnacimiento = (isset($arrprop['lugarnacimiento'])) ? $arrprop['lugarnacimiento'] : NULL;
       $this->fechadefuncion = (isset($arrprop['fechadefuncion'])) ? $arrprop['fechadefuncion'] : NULL;
       $this->lugardefuncion = (isset($arrprop['lugardefuncion'])) ? $arrprop['lugardefuncion'] : NULL;
-      $this->objetos = (isset($arrprop['objetos'])) ? $arrprop['objetos'] : NULL;
+      $this->propiedades = (isset($arrprop['propiedades'])) ? $arrprop['propiedades'] : NULL;
       $this->urlimagen = (isset($arrprop['urlimagen'])) ? $arrprop['urlimagen'] : NULL;
       $this->confianzafechanacimiento = (isset($arrprop['confianzafechanacimiento'])) ? $arrprop['confianzafechanacimiento'] : NULL;
       $this->confianzafechadefuncion = (isset($arrprop['confianzafechadefuncion'])) ? $arrprop['confianzafechadefuncion'] : NULL;
@@ -47,14 +47,9 @@ class Persona{
   function almacena(){
     $arrprop;
     foreach ($this as $nombre => $valor) {
-      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'objetos') { //esto hay que introducirlo utilizando su método
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia') { //esto hay que introducirlo utilizando su método
         if ($valor) {
-          if ($nombre == 'palabrasclave' && is_array($valor)) {
-            $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
-          }
-          else{
-            $arrprop[strtolower($nombre)] = $valor;
-          }
+          $arrprop[strtolower($nombre)] = $valor;
         }
       }
      }
@@ -63,7 +58,7 @@ class Persona{
   function modifica(){
     $arrprop;
     foreach ($this as $nombre => $valor) {
-      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'objetos') {
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia') {
          $arrprop[strtolower($nombre)] = $valor;
       }
      }
@@ -124,9 +119,29 @@ class Persona{
     $titulos = OperaBD::selec('datos.titulos',$campos,null,$id,$orden);
     return $titulos;
   }
+  function setPropiedad($arrobjeto){//$arrobjeto: array asociativo con el nombre del campo en la clave y el valor en el valor
+    $arrobjeto['idpersonas'] = $this->idpersonas;
+    OperaBD::inserta('datos.personasobjetos',$arrobjeto);
+  }
+  function getPropiedades(){
+    $objetos;
+    $id = array('idpersonas' => $this->idpersonas );
+    $arrprop =  array('idobjetos');
+    $idsobjetos = OperaBD::selec('datos.personasobjetos',$arrprop,null,$id);
+    foreach ($idsobjetos as $key => $value) {
+      $objetos[] = OperaBD::selec('datos.objetos',array('nombre'),null,$value)[0];
+    }
+    return $objetos;
+  }
   function setPariente($arrpariente){//$arrpariente: array asociativo con el nombre del campo en la clave y el valor en el valor
-    $arrpariente['idpersonas'] = $this->idpersonas;
-    OperaBD::inserta('datos.parentesco',$arrtitulo);
+    $arrpariente['idsujeto'] = $this->idpersonas;
+    OperaBD::inserta('datos.parentesco',$arrpariente);
+  }
+  function getParientes(){
+    $campos = array('idsujeto','idobjeto','idtiporel');//¿NO SERÍA MEJOR UNA FUNCIÓN ALMACENADA EN BASE DE DATOS, QUE DEVUELVA LOS IDPERSONAS?
+    $condicion = array('idsujeto' => $this->idpersonas,'idobjeto' => $this->idpersonas );
+    $parientes = OperaBD::selec('datos.parentesco',$campos,null,$condicion,null,'OR');
+    return $parientes;
   }
 }
 

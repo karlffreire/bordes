@@ -5,13 +5,13 @@ require './datos/modelo/operabd.class.php';
 
 //INSERCION DE UNA NUEVA PERSONA UTILIZANDO ARRAY DE PROPIEDADES
 // $arrprop = array(
-//   'nombre' => 'Pedro',
-//   'apellidos' => 'Palotes Pirulo',
+//   'nombre' => 'Hans',
+//   'apellidos' => 'von Fugger',
 //   'genero' => 'Hombre',
 //   'nacionalidad' => 1,
 // );
 // $persona1 = new Persona(true,$arrprop);
-//var_dump($persona1);
+// var_dump($persona1);
 //  $persona1->almacena();
 
 //SELECCION DE UNA PERSONA CON VARIOS ATRIBUTOS
@@ -19,7 +19,6 @@ require './datos/modelo/operabd.class.php';
  $where = array('nombre' => 'Pedro');
  $orden = array('nombre');
  $prueba = OperaBD::selec('datos.personas',$arrprop,'Persona',$where,$orden)[0];
-
 
 //Y MODIFICACIÓN DE LA PERSONA SELECCIONADA
 // $prueba->lugarnacimiento = 1;
@@ -46,13 +45,14 @@ require './datos/modelo/operabd.class.php';
 // $prueba->setTitulo($titulos);
 //$prueba->getTitulos();
 
-//CREAR Y VER PARIENTES DE LA SELECCIÓN ANTERIOR
-//$pariente = array('idobjeto' => 24,'idtiporel'=> );
+//CREAR Y VER PROPIEDADES DE LA SELECCIÓN ANTERIOR
+// $objeto = array('idobjetos' => 8 );
+// $prueba->setPropiedad($objeto);
+//var_dump($prueba->getPropiedades());
 
-//$prueba->setObjeto(2);
-// $objetos = $prueba->getObjetos();
-// foreach ($objetos as $key => $value) {
-//   echo $value['nombre'].'<br>';
-// }
+//CREAR Y VER PARIENTES DE LA SELECCIÓN ANTERIOR
+// $pariente = array('idobjeto' => 26,'idtiporel'=> 18);
+// $prueba->setPariente($pariente);
+var_dump($prueba->getParientes());
 
  ?>

@@ -95,9 +95,10 @@ class OperaBD {
    * @param  string $clase Nombre de la clase a instanciar. Si no se proporciona, se devolverá un array normal, en lugar de un array de objetos
    * @param  array $where Array asociativo de columna y condicion. Cláusula de filtro. Si no está presente,se seleccionará todo. Siempre utiliza el operador AND para unir las claúsulas
    * @param  array $orden Array de campos para ordenar
+   * @param  string $operador Operador para unir condiciones (sólo puede haber un operador). Por defecto AND
    * @return array Array de registros u objetos encontrados
    */
-  static function selec ($tabla,$arrprop,$clase = null,$where = null, $orden = null){
+  static function selec ($tabla,$arrprop,$clase = null,$where = null, $orden = null,$operador = 'AND'){
     $lstcamp;
     foreach ($arrprop as $key => $value) {
       $lstcamp[] = $value;
@@ -105,10 +106,16 @@ class OperaBD {
     $sql = "SELECT ".implode(',',$lstcamp)." FROM $tabla";
     if ($where) {
       $sql .= ' WHERE ';
+      $numItems = count($where);
+      $i = 0;
       foreach ($where as $key => $value) {
-        $sql .= $key .' = :'.$key .' AND ';
+        if(++$i === $numItems) {
+          $sql .= $key .' = :'.$key.' ';
+        }
+        else{
+          $sql .= $key .' = :'.$key .' '.$operador.' ';
+        }
       }
-      $sql = substr($sql, 0, -4);
     }
     if ($orden) {
       $sql .= 'ORDER BY '.implode(',',$orden);

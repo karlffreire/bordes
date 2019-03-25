@@ -70,9 +70,9 @@ class Carta {
       $cual = array('idcartas'=>$this->idcartas);
      OperaBD::borra('datos.cartas',$cual);
    }
-   function setObjeto($idobjeto){
-     $fila = array('idcartas' => $this->idcartas, 'idobjetos' => $idobjeto);
-     OperaBD::inserta('datos.objetoscartas',$fila);
+   function setObjeto($idobjeto){//$arrobjeto: array asociativo con el nombre del campo en la clave y el valor en el valor
+     $arrobjeto['idpersonas'] = $this->idpersonas;
+     OperaBD::inserta('datos.objetoscartas',$arrobjeto);
    }
    function getObjetos(){
      $objetos;
