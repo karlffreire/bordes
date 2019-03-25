@@ -35,22 +35,22 @@ class OperaBD {
    *
    * @param  string $tabla Nombre de la tabla. Debe incluir el esquema
    * @param  array $arrprop Array asociativo. Las claves son el nombre del campo y el valor el valor a insertar
-   * @param  array $id ID de la fila a modificar. Array asociativo: nombre campo en clave, valor en valor
+   * @param  array $cual Condición de las filas a modificar. Array asociativo: nombre campo en clave, valor en valor. Sólo una condición
    */
-  static function modifica ($tabla,$arrprop,$id){
+  static function modifica ($tabla,$arrprop,$cual){
     $lstcamp;
     $params;
     foreach ($arrprop as $key => $value) {
       $lstcamp[] = $key .' = '.':'.$key;
     }
-    $sql = "UPDATE $tabla SET ".implode(',',$lstcamp)." WHERE ".key($id)." = :id;";
+    $sql = "UPDATE $tabla SET ".implode(',',$lstcamp)." WHERE ".key($cual)." = :id;";
     $mbd = ConBD::conectaBD();
     try{
       $sentencia = $mbd->prepare($sql);
       foreach ($arrprop as $key => $value) {
         $sentencia->bindValue(':'.$key,$value);
       }
-      foreach ($id as $key => $value) {
+      foreach ($cual as $key => $value) {
         $sentencia->bindValue(':id',$value);
       }
       $sentencia->execute();
@@ -95,7 +95,7 @@ class OperaBD {
    * @param  string $clase Nombre de la clase a instanciar. Si no se proporciona, se devolverá un array normal, en lugar de un array de objetos
    * @param  array $where Array asociativo de columna y condicion. Cláusula de filtro. Si no está presente,se seleccionará todo. Siempre utiliza el operador AND para unir las claúsulas
    * @param  array $orden Array de campos para ordenar
-   * @return array Array de objetos encontrados
+   * @return array Array de registros u objetos encontrados
    */
   static function selec ($tabla,$arrprop,$clase = null,$where = null, $orden = null){
     $lstcamp;
@@ -108,8 +108,12 @@ class OperaBD {
       foreach ($where as $key => $value) {
         $sql .= $key .' = :'.$key .' AND ';
       }
-      $sql = substr($sql, 0, -4).';';
+      $sql = substr($sql, 0, -4);
     }
+    if ($orden) {
+      $sql .= 'ORDER BY '.implode(',',$orden);
+    }
+    $sql .= ';';
     $mbd = ConBD::conectaBD();
     try{
       $sentencia = $mbd->prepare($sql);

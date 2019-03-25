@@ -1,11 +1,12 @@
 <?php
 $fallo = $_GET['fallo'];
-if (isset($_COOKIE["bordes"])) {
-  $credenciales = explode('#',$_COOKIE["bordes"]);
+if (isset($_COOKIE["bordesarch"])) {
+  $credenciales = explode('#',$_COOKIE["bordesarch"]);
   session_start();
   $usedired = false;
   if (isset($_SESSION['proyecto']) && $_SESSION['proyecto']=='bordes') {
-    $grupos = miembroDe($credenciales[0]);
+    require './datos/modelo/conexion.php';
+    $grupos = ConBD::miembroDe($credenciales[0]);
     foreach ($grupos as $grupo) {
       if ($grupo == 'lector_bordes' || $grupo == 'editor_bordes'){
         $usedired = true;
@@ -26,7 +27,7 @@ if (isset($_COOKIE["bordes"])) {
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <!-- <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid todo">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Bordes del Archivo: Identificación</a>
@@ -35,7 +36,7 @@ if (isset($_COOKIE["bordes"])) {
           <a href="http://unidadsig.cchs.csic.es/sig/"><img src="./img/logo_usig.png" style="height: 35px;margin-top: 5px;cursor: pointer;" /></a>
         </div>
       </div>
-    </nav>
+    </nav> -->
     <div class="container">
         <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3">
             <div class="panel-body" style="margin-top: 100px;">

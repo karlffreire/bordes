@@ -74,7 +74,60 @@ class Persona{
      $cual = array('idpersonas'=>$this->idpersonas);
     OperaBD::borra('datos.personas',$cual);
   }
-
+  function getNacionalidad(){
+    $campo = array('pais');
+    $id = array('idpaises' => $this->nacionalidad);
+    $txtnac = OperaBD::selec('datos.paises',$campo,null,$id)[0];
+    return $txtnac['pais'];
+  }
+  function setHomonimia($arrhomonimia){//$arrhomonimia: array asociativo con el nombre del campo en la clave y el valor en el valor
+    $arrhomonimia['idpersonas'] = $this->idpersonas;
+    OperaBD::inserta('datos.homonimias',$arrhomonimia);
+  }
+  function getHomonimias(){
+    $campos = array('tipohomonimia','nombre','apellidos');
+    $id = array('idpersonas' => $this->idpersonas );
+    $orden = array('tipohomonimia');
+    $homonimias = OperaBD::selec('datos.homonimias',$campos,null,$id,$orden);
+    return $homonimias;
+  }
+  function setOficio($arroficio){//$arroficio: array asociativo con el nombre del campo en la clave y el valor en el valor
+    $arroficio['idpersonas'] = $this->idpersonas;
+    OperaBD::inserta('datos.oficio',$arroficio);
+  }
+  function getOficios(){
+    $campos = array('nombre','observaciones');
+    $id = array('idpersonas' => $this->idpersonas );
+    $orden = array('nombre');
+    $oficios = OperaBD::selec('datos.oficio',$campos,null,$id,$orden);
+    return $oficios;
+  }
+  function setCargo($arrcargo){//$arrcargo: array asociativo con el nombre del campo en la clave y el valor en el valor
+    $arrcargo['idpersonas'] = $this->idpersonas;
+    OperaBD::inserta('datos.cargos',$arrcargo);
+  }
+  function getCargos(){
+    $campos = array('cargo','fechainicio','confianzafechainicio','fechafin','confianzafechafin','instituciones.nombre');
+    $id = array('idpersonas' => $this->idpersonas );
+    $orden = array('fechainicio');
+    $cargos = OperaBD::selec('datos.cargos INNER JOIN datos.instituciones ON cargos.idinstituciones = instituciones.idinstituciones',$campos,null,$id,$orden);
+    return $cargos;
+  }
+  function setTitulo($arrtitulo){//$arrtitulo: array asociativo con el nombre del campo en la clave y el valor en el valor
+    $arrtitulo['idpersonas'] = $this->idpersonas;
+    OperaBD::inserta('datos.titulos',$arrtitulo);
+  }
+  function getTitulos(){
+    $campos = array('denominacion','fechaconcesion','confianzafechaconcesion','fechadesposesion','confianzafechadesposesion','observaciones');
+    $id = array('idpersonas' => $this->idpersonas );
+    $orden = array('fechaconcesion');
+    $titulos = OperaBD::selec('datos.titulos',$campos,null,$id,$orden);
+    return $titulos;
+  }
+  function setPariente($arrpariente){//$arrpariente: array asociativo con el nombre del campo en la clave y el valor en el valor
+    $arrpariente['idpersonas'] = $this->idpersonas;
+    OperaBD::inserta('datos.parentesco',$arrtitulo);
+  }
 }
 
 
