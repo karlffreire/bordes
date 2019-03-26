@@ -137,10 +137,37 @@ class Persona{
     $arrpariente['idsujeto'] = $this->idpersonas;
     OperaBD::inserta('datos.parentesco',$arrpariente);
   }
-  function getParientes(){
-    $campos = array('idsujeto','idobjeto','idtiporel');//¿NO SERÍA MEJOR UNA FUNCIÓN ALMACENADA EN BASE DE DATOS, QUE DEVUELVA LOS IDPERSONAS?
+  function getParientes(){//Devuelve un array de personas con una propiedad extra: parentesco
+    $idsparientes;
+    $parientes;
+    $campos = array('idsujeto','idobjeto','idtiporel');
     $condicion = array('idsujeto' => $this->idpersonas,'idobjeto' => $this->idpersonas );
-    $parientes = OperaBD::selec('datos.parentesco',$campos,null,$condicion,null,'OR');
+    $parentescos = OperaBD::selec('datos.parentesco',$campos,null,$condicion,null,'OR');
+    foreach ($parentescos as $key => $pariente) {
+      if ($pariente['idsujeto'] != $this->idpersonas) {
+        $idsparientes[]=array(
+          'idpersona'=>$pariente['idsujeto'],
+          'idtiporel'=>$pariente['idtiporel']
+        );
+      }
+      if ($pariente['idobjeto'] != $this->idpersonas) {
+        $idsparientes[]=array(
+          'idpersona'=>$pariente['idobjeto'],
+          'idtiporel'=>$pariente['idtiporel']
+        );
+      }
+    }
+    foreach ($idsparientes as $key => $idpariente) {
+      $where = array('idpersonas' => $idpariente['idpersona']);
+      $pariente = OperaBD::selec('datos.personas',array('*'),'Persona',$where)[0];
+      $mbd = ConBD::conectaBD();
+      $sentencia = $mbd->prepare("select datos.txt_relaciones(:idrel) as relacion;");
+      $sentencia->bindValue(':idrel',$idpariente['idtiporel']);
+      $sentencia->execute();
+      $mbd = null;
+      $pariente->parentesco = $sentencia->fetch()['relacion'];
+      $parientes[] = $pariente;
+    }
     return $parientes;
   }
 }

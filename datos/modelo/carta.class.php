@@ -84,5 +84,8 @@ class Carta {
      }
      return $objetos;
    }
+   function setMercanciaSolicitada($arrmercancia){
+     
+   }
 }
 ?>
