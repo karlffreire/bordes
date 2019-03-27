@@ -201,3 +201,22 @@ GRANT EXECUTE ON FUNCTION datos.txt_relaciones(integer) TO editor_bordes WITH GR
 GRANT EXECUTE ON FUNCTION datos.txt_relaciones(integer) TO postgres;
 GRANT EXECUTE ON FUNCTION datos.txt_relaciones(integer) TO PUBLIC;
 GRANT EXECUTE ON FUNCTION datos.txt_relaciones(integer) TO lector_bordes WITH GRANT OPTION;
+
+ALTER TABLE datos.acontecimiento
+    DROP CONSTRAINT acontecimiento_idcartas_fkey;
+
+ALTER TABLE datos.acontecimiento
+    DROP COLUMN idcartas;
+
+CREATE TABLE datos.cartasacontecimiento  (
+  idacontecimiento integer NOT NULL,
+  idcartas integer NOT NULL,
+  CONSTRAINT cartasacontecimiento_pkey PRIMARY KEY (idacontecimiento,idcartas),
+  CONSTRAINT cartas_fkey FOREIGN KEY (idcartas) REFERENCES datos.cartas (idcartas) MATCH SIMPLE ON UPDATE CASCADE ON DELETE NO ACTION,
+  CONSTRAINT acontecimiento_fkey FOREIGN KEY (idacontecimiento) REFERENCES datos.acontecimiento (idacontecimiento) MATCH SIMPLE ON UPDATE CASCADE ON DELETE NO ACTION
+);
+ALTER TABLE datos.cartasacontecimiento
+  OWNER TO postgres;
+GRANT ALL ON TABLE datos.cartasacontecimiento TO postgres;
+GRANT ALL ON TABLE datos.cartasacontecimiento TO editor_bordes;
+GRANT SELECT ON TABLE datos.cartasacontecimiento TO lector_bordes;

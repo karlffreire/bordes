@@ -14,9 +14,9 @@ class Carta {
   public $palabrasclave;
   public $observacioneshonra;
   public $urlimagen;
+  public $tramiteslegales;
   private $objetos;
   private $mercanciassolicitadas;
-  private $tramiteslegales;
   function __construct($nuevo = false, $arrprop = false) {
     if ($nuevo) {
       $mbd = ConBD::conectaBD();
@@ -38,6 +38,7 @@ class Carta {
       $this->palabrasclave = (isset($arrprop['palabrasclave'])) ? $arrprop['palabrasclave'] : NULL;
       $this->observacioneshonra = (isset($arrprop['observacioneshonra'])) ? $arrprop['observacioneshonra'] : NULL;
       $this->urlimagen = (isset($arrprop['urlimagen'])) ? $arrprop['urlimagen'] : NULL;
+      $this->tramiteslegales = (isset($arrprop['tramiteslegales'])) ? $arrprop['tramiteslegales'] : NULL;
     }
    }
    function almacena(){
@@ -45,7 +46,7 @@ class Carta {
      foreach ($this as $nombre => $valor) {
        if ($nombre != 'mercanciassolicitadas' && $nombre != 'objetos') { //esto hay que introducirlo utilizando su método
          if ($valor) {
-           if ($nombre == 'palabrasclave' && is_array($valor)) {
+           if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales') && is_array($valor)) {
              $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
            }
            else{
@@ -85,7 +86,47 @@ class Carta {
      return $objetos;
    }
    function setMercanciaSolicitada($arrmercancia){
-     
+     $arrmercancia['idcartas'] = $this->idcartas;
+     OperaBD::inserta('datos.mercanciasybienes',$arrmercancia);
+   }
+   function getMercanciasSolicitadas(){
+     $arrid = array('idcartas' => $this->idcartas);
+     $mercancias = OperaBD::selec('datos.mercanciasybienes',array('*'),null,$arrid);
+     return $mercancias;
+   }
+   function setEmisor($idpersona){
+     $arremite = array('idpersonas'=>$idpersona,'idcartas'=>$this->idcartas,'rolpersona'=>'Emisor');
+     OperaBD::inserta('datos.cartaspersonas',$arremite);
+   }
+   function getEmisor(){
+     $idemisor = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Emisor'))[0];
+     $arridemisor = array('idpersonas'=>$idemisor['idpersonas']);
+     $emisor = OperaBD::selec('datos.personas',array('*'),'Persona',$arridemisor);
+     return $emisor;
+   }
+   function setReceptor($idpersona){
+     $arrrecibe = array('idpersonas'=>$idpersona,'idcartas'=>$this->idcartas,'rolpersona'=>'Receptor');
+     OperaBD::inserta('datos.cartaspersonas',$arrrecibe);
+   }
+   function getReceptor(){
+     $idreceptor = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Receptor'))[0];
+     $arridreceptor = array('idpersonas'=>$idreceptor['idpersonas']);
+     $receptor = OperaBD::selec('datos.personas',array('*'),'Persona',$arridreceptor);
+     return $receptor;
+   }
+   function setMenciones($arridpersonas){
+     foreach ($arridpersonas as $key => $idpersona) {
+       $arrmenciona = array('idpersonas'=>$idpersona,'idcartas'=>$this->idcartas,'rolpersona'=>'Otro');
+       OperaBD::inserta('datos.cartaspersonas',$arrmenciona);
+     }
+   }
+   function getMenciones(){
+     $mencionados;
+     $idmenciones = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Otro'));
+     foreach ($idmenciones as $key => $value) {
+       $mencionados[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value,null,'OR')[0];
+     }
+     return $mencionados;
    }
 }
 ?>
