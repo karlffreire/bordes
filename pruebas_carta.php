@@ -2,6 +2,7 @@
 require './datos/modelo/conexion.php';
 require './datos/modelo/carta.class.php';
 require './datos/modelo/persona.class.php';
+require './datos/modelo/viaje.class.php';
 require './datos/modelo/operabd.class.php';
 
 //INSERCION DE UNA NUEVA CARTA UTILIZANDO ARRAY DE PROPIEDADES
@@ -30,9 +31,9 @@ require './datos/modelo/operabd.class.php';
  //$carta1->almacena();
 
 //SELECCION DE UNA CARTA CON VARIOS ATRIBUTOS
-// $arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','pagina','asunto','palabrasclave','identificador');
-//  $where = array('idcartas' => 55);
-//  $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
+$arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','pagina','asunto','palabrasclave','identificador');
+ $where = array('idcartas' => 55);
+ $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
 //var_dump($prueba);
 
 //Y MODIFICACIÓN DE LA CARTA SELECCIONADA
@@ -63,8 +64,19 @@ require './datos/modelo/operabd.class.php';
 //$prueba->setMenciones(array(28,29));
 //$prueba->getMenciones();
 
-//AÑADIR Y RECUPERAR LUGARES DE EMISIÓN Y RECEPCIÓN:
+//RECUPERAR LUGARES DE EMISIÓN Y RECEPCIÓN:
+//$prueba->getLugarEmision();
+//$prueba->getLugarRecepcion();
 
+//ASIGNAR VIAJE SOBRE LA SELECCIÓN ANTERIOR
+//$prueba->setViaje(14);
+//$prueba->getViajes();
+
+//EJEMPLO VER RECORRIDO DE VIAJE DE CARTA:
+// $recorrido = $prueba->getViajes()[0]->getRecorrido();
+// foreach ($recorrido as $key => $etapa) {
+//   echo var_dump($etapa).'<br>';
+// }
 
 
  ?>

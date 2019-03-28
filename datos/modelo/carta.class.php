@@ -124,9 +124,37 @@ class Carta {
      $mencionados;
      $idmenciones = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Otro'));
      foreach ($idmenciones as $key => $value) {
-       $mencionados[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value,null,'OR')[0];
+       $mencionados[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value)[0];
      }
      return $mencionados;
+   }
+   function getLugarEmision(){
+     if($this->lugaremision == NULL){
+       return NULL;
+     }
+     $idlugar = array('idlugares'=>$this->lugaremision);
+     $lugar = OperaBD::selec('datos.lugares inner join datos.geometrias on lugares.gid = geometrias.gid',array('nombre, tipolugar,toponimo, st_asgeojson(geometrias.geom) as geojson'),null,$idlugar)[0];
+     return $lugar;
+   }
+   function getLugarRecepcion(){
+     if($this->lugarrecepcion == NULL){
+       return NULL;
+     }
+     $idlugar = array('idlugares'=>$this->lugarrecepcion);
+     $lugar = OperaBD::selec('datos.lugares inner join datos.geometrias on lugares.gid = geometrias.gid',array('nombre, tipolugar,toponimo, st_asgeojson(geometrias.geom) as geojson'),null,$idlugar)[0];
+     return $lugar;
+   }
+   function setViaje($idviajes){
+     $arrcartasviajes = array('idviajes' => $idviajes,'idcartas'=>$this->idcartas);
+     OperaBD::inserta('datos.cartasviajes',$arrcartasviajes);
+   }
+   function getViajes(){
+     $viajes;
+     $idmenciones = OperaBD::selec('datos.cartasviajes',array('idviajes'),null,array('idcartas'=>$this->idcartas));
+     foreach ($idmenciones as $key => $value) {
+       $viajes[] = OperaBD::selec('datos.viajes',array('*'),'Viaje',$value)[0];
+     }
+     return $viajes;
    }
 }
 ?>

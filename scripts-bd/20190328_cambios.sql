@@ -220,3 +220,69 @@ ALTER TABLE datos.cartasacontecimiento
 GRANT ALL ON TABLE datos.cartasacontecimiento TO postgres;
 GRANT ALL ON TABLE datos.cartasacontecimiento TO editor_bordes;
 GRANT SELECT ON TABLE datos.cartasacontecimiento TO lector_bordes;
+
+ALTER TABLE datos.lugares
+    ADD COLUMN gid integer;
+ALTER TABLE datos.lugares
+    ADD CONSTRAINT geometrias_fkey FOREIGN KEY (gid) REFERENCES datos.geometrias (gid) MATCH SIMPLE ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE datos.recorrido
+    DROP CONSTRAINT recorrido_idlugares_fkey;
+ALTER TABLE datos.recorrido
+    DROP COLUMN idlugares;
+ALTER TABLE datos.recorrido
+    ADD COLUMN gid integer;
+ALTER TABLE datos.recorrido
+    ADD CONSTRAINT gid_fkey FOREIGN KEY (gid) REFERENCES datos.geometrias (gid) MATCH SIMPLE ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE datos.viajes RENAME fechaincio  TO fechainicio;
+
+ALTER TABLE datos.viajes
+  DROP COLUMN decoro;
+ALTER TABLE datos.viajes
+  DROP COLUMN realizado;
+ALTER TABLE datos.viajes
+  ADD COLUMN realizado boolean;
+ALTER TABLE datos.viajes
+  ADD COLUMN decoro boolean;
+
+  DROP TABLE datos.personasrecorrido;
+
+  CREATE TABLE datos.viajeros
+  (
+    idpersonas integer NOT NULL,
+    idviajes integer NOT NULL,
+    CONSTRAINT viajeros_pkey PRIMARY KEY (idpersonas, idviajes),
+    CONSTRAINT idpersonas_fkey FOREIGN KEY (idpersonas)
+        REFERENCES datos.personas (idpersonas) MATCH SIMPLE
+        ON UPDATE CASCADE ON DELETE NO ACTION,
+    CONSTRAINT idviajes_fkey FOREIGN KEY (idviajes)
+        REFERENCES datos.viajes (idviajes) MATCH SIMPLE
+        ON UPDATE CASCADE ON DELETE NO ACTION
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE datos.viajeros
+    OWNER TO postgres;
+  GRANT ALL ON TABLE datos.viajeros TO postgres;
+  GRANT ALL ON TABLE datos.viajeros TO editor_bordes;
+  GRANT SELECT ON TABLE datos.viajeros TO lector_bordes;
+
+SELECT setval('datos.ciudadesnuevas_id_seq', 2, true);
+
+ALTER TABLE datos.personas
+  DROP CONSTRAINT personas_lugardefuncion_fkey;
+ALTER TABLE datos.personas
+  DROP CONSTRAINT personas_lugarnacimiento_fkey;
+
+ALTER TABLE datos.personas
+  ADD CONSTRAINT lugardefuncion_fkey FOREIGN KEY (lugardefuncion)
+      REFERENCES datos.geometrias (gid) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+ALTER TABLE datos.personas
+  ADD CONSTRAINT lugarnacimiento_fkey FOREIGN KEY (lugarnacimiento)
+      REFERENCES datos.geometrias (gid) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE datos.geometrias RENAME nombre  TO toponimo;
