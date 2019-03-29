@@ -58,7 +58,7 @@ class Persona{
   function modifica(){
     $arrprop;
     foreach ($this as $nombre => $valor) {
-      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia') {
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'idpersonas') {
          $arrprop[strtolower($nombre)] = $valor;
       }
      }

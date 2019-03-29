@@ -156,5 +156,17 @@ class Carta {
      }
      return $viajes;
    }
+   function setAcontecimiento($idacontecimiento){
+     $arrcartasacontecimiento = array('idacontecimiento' => $idacontecimiento,'idcartas'=>$this->idcartas);
+     OperaBD::inserta('datos.cartasacontecimiento',$arrcartasacontecimiento);
+   }
+   function getAcontecimientos(){
+     $acontecimientos;
+     $idacontecimientos = OperaBD::selec('datos.cartasacontecimiento',array('idacontecimiento'),null,array('idcartas'=>$this->idcartas));
+     foreach ($idacontecimientos as $key => $value) {
+       $acontecimientos[] = OperaBD::selec('datos.acontecimiento',array('*'),'Acontecimiento',$value)[0];
+     }
+     return $acontecimientos;
+   }
 }
 ?>

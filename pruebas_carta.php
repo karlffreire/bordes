@@ -3,6 +3,7 @@ require './datos/modelo/conexion.php';
 require './datos/modelo/carta.class.php';
 require './datos/modelo/persona.class.php';
 require './datos/modelo/viaje.class.php';
+require './datos/modelo/acontecimiento.class.php';
 require './datos/modelo/operabd.class.php';
 
 //INSERCION DE UNA NUEVA CARTA UTILIZANDO ARRAY DE PROPIEDADES
@@ -78,5 +79,8 @@ $arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','p
 //   echo var_dump($etapa).'<br>';
 // }
 
+//ASIGNAR Y RECUPERAR UN ACONTECIMIENTO SOBRE LA SELECCIÓN ANTERIOR
+//$prueba->setAcontecimiento(4);
+//$prueba->getAcontecimientos();
 
  ?>
