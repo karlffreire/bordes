@@ -74,6 +74,16 @@ $edit = $_SESSION["editor"];
       <p><a class="btn btn-default" href="./viajes.php" role="button">Viajes</a></p>
     </div>
   </div>
+  <div class="row">
+    <hr style="border:solid 1px;">
+  </div>
+  <div class="row" style="display: flex;justify-content: space-between;">
+    <h4>Visualización y gestión de otros datos:</h4>
+  </div>
+  <div class="row" style="display: flex;justify-content: space-between;margin-top:25px;">
+    <p><a class="btn btn-default" href="./otros.php#acontecimientos" role="button">Acontecimientos</a></p>
+    <p><a class="btn btn-default" href="./otros.php#instituciones" role="button">Instituciones</a></p>
+  </div>
 </div>
 
 
