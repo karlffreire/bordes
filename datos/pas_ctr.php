@@ -1,8 +1,8 @@
 <?php
 
-$config = parse_ini_file('C:\wamp64\conexiones\bordes.ini');
+//$config = parse_ini_file('C:\wamp64\conexiones\bordes.ini');
 //$config = parse_ini_file('/var/www/conexiones/bordes.ini');
-//$config = parse_ini_file('/opt/lampp/conbd/bordes.ini');
+$config = parse_ini_file('/opt/lampp/conbd/bordes.ini');
 
 session_start();
 $_SESSION['host']= $config['srv'];
