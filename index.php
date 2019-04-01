@@ -49,30 +49,30 @@ $edit = $_SESSION["editor"];
   </nav>
 <div class="container">
   <div class="row" style="margin-top:150px;text-align:center;">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <div class="icon-menu-init">
         <i class="fa fa-users fa-4x" style="margin-top:40px;"></i>
       </div>
       <h2>Personas</h2>
       <p>Visualizar y gestionar la información de personas incluidas en la base de datos.</p>
-      <p><a class="btn btn-default" href="./personas.php" role="button">Personas</a></p>
+      <p><a class="btn btn-default" href="./principal.php?p=personas" role="button">Personas</a></p>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <div class="icon-menu-init">
         <i class="fa fa-envelope fa-4x" style="margin-top:40px;"></i>
       </div>
       <h2>Cartas</h2>
       <p>Visualizar y gestionar la información de las cartas incluidas en la base de datos.</p>
-      <p><a class="btn btn-default" href="./cartas.php" role="button">Cartas</a></p>
+      <p><a class="btn btn-default" href="./principal.php?p=cartas" role="button">Cartas</a></p>
     </div>
-    <div class="col-lg-4">
+    <!-- <div class="col-lg-4">
       <div class="icon-menu-init">
         <i class="fa fa-map-signs fa-4x" style="margin-top:40px;"></i>
       </div>
       <h2>Viajes</h2>
       <p>Visualizar y gestionar la información de los viajes incluidos en la base de datos.</p>
-      <p><a class="btn btn-default" href="./viajes.php" role="button">Viajes</a></p>
-    </div>
+      <p><a class="btn btn-default" href="./principal.php?p=viajes" role="button">Viajes</a></p>
+    </div> -->
   </div>
   <div class="row">
     <hr style="border:solid 1px;">
@@ -81,8 +81,8 @@ $edit = $_SESSION["editor"];
     <h4>Visualización y gestión de otros datos:</h4>
   </div>
   <div class="row" style="display: flex;justify-content: space-between;margin-top:25px;">
-    <p><a class="btn btn-default" href="./otros.php#acontecimientos" role="button">Acontecimientos</a></p>
-    <p><a class="btn btn-default" href="./otros.php#instituciones" role="button">Instituciones</a></p>
+    <p><a class="btn btn-default" href="./principal.php?p=acontecimientos" role="button">Acontecimientos</a></p>
+    <p><a class="btn btn-default" href="./principal.php?p=instituciones" role="button">Instituciones</a></p>
   </div>
 </div>
 

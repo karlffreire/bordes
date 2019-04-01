@@ -32,7 +32,7 @@ require './datos/modelo/operabd.class.php';
  //$carta1->almacena();
 
 //SELECCION DE UNA CARTA CON VARIOS ATRIBUTOS
-$arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','pagina','asunto','palabrasclave','identificador');
+$arrprop  = array('*');
  $where = array('idcartas' => 55);
  $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
 //var_dump($prueba);
@@ -57,10 +57,8 @@ $arrprop  = array('idcartas','numeroregistro','lugaremision','lugarrecepcion','p
 // $prueba->setMercanciaSolicitada($arrmercancia);
 //$prueba->getMercanciasSolicitadas()
 
-//AÑADIR Y RECUPERAR EMISOR, RECEPTOR Y MENCIONES SOBRE LA SELECCIÓN ANTERIOR:
-//$prueba->setEmisor(22);
+//RECUPERAR EMISOR, RECEPTOR Y MENCIONES SOBRE LA SELECCIÓN ANTERIOR:
 //$prueba->getEmisor();
-//$prueba->setReceptor(24);
 //$prueba->getReceptor();
 //$prueba->setMenciones(array(28,29));
 //$prueba->getMenciones();

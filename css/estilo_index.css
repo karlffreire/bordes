@@ -37,36 +37,13 @@ html{
 .ficha{
   width: 90%;
 }
-.tabla-per th{
-	color:#87186B;
+
+.tabla-ppal th{
+	color:#454545;
 }
 
-.tabla-per.table-hover tbody tr:hover td, .tabla-per.table-hover tbody tr:hover th {
-  background-color: rgba(220,137,199,0.1); ;
-}
-
-.tabla-ed th{
-  color:#6A8FB1;
-}
-
-.tabla-ed.table-hover tbody tr:hover td, .tabla-ed.table-hover tbody tr:hover th {
-  background-color: rgba(162,192,220,0.1); ;
-}
-
-.tabla-edit th{
-	color:#088A08;
-}
-
-.tabla-edit.table-hover tbody tr:hover td, .tabla-edit.table-hover tbody tr:hover th {
-  background-color: rgba(149,218,149,0.1); ;
-}
-
-.tabla-inst th{
-  color:#AEB404;
-}
-
-.tabla-inst.table-hover tbody tr:hover td, .tabla-inst.table-hover tbody tr:hover th {
-  background-color: rgba(228,230,167,0.1); ;
+.tabla-ppal.table-hover tbody tr:hover td, .tabla-ppal.table-hover tbody tr:hover th {
+  background-color: #CCC;
 }
 
 .input-adaptable{

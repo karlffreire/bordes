@@ -118,7 +118,7 @@ class OperaBD {
       }
     }
     if ($orden) {
-      $sql .= 'ORDER BY '.implode(',',$orden);
+      $sql .= ' ORDER BY '.implode(',',$orden);
     }
     $sql .= ';';
     $mbd = ConBD::conectaBD();

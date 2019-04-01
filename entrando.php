@@ -27,7 +27,7 @@ if (isset($_COOKIE["bordesarch"])) {
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
 </head>
 <body>
-    <!-- <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid todo">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Bordes del Archivo: Identificación</a>
@@ -36,7 +36,7 @@ if (isset($_COOKIE["bordesarch"])) {
           <a href="http://unidadsig.cchs.csic.es/sig/"><img src="./img/logo_usig.png" style="height: 35px;margin-top: 5px;cursor: pointer;" /></a>
         </div>
       </div>
-    </nav> -->
+    </nav>
     <div class="container">
         <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3">
             <div class="panel-body" style="margin-top: 100px;">

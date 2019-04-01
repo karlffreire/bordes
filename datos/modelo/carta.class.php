@@ -3,6 +3,8 @@
 class Carta {
   public $idcartas;
   public $identificador;
+  public $idemisor;
+  public $idreceptor;
   public $numeroregistro;
   public $lugaremision;
   public $lugarrecepcion;
@@ -83,7 +85,10 @@ class Carta {
      foreach ($idsobjetos as $key => $value) {
        $objetos[] = OperaBD::selec('datos.objetos',array('nombre'),null,$value)[0];
      }
-     return $objetos;
+     if (isset($objetos)) {
+       return $objetos;
+     }
+     return null;
    }
    function setMercanciaSolicitada($arrmercancia){
      $arrmercancia['idcartas'] = $this->idcartas;
@@ -92,27 +97,26 @@ class Carta {
    function getMercanciasSolicitadas(){
      $arrid = array('idcartas' => $this->idcartas);
      $mercancias = OperaBD::selec('datos.mercanciasybienes',array('*'),null,$arrid);
-     return $mercancias;
-   }
-   function setEmisor($idpersona){
-     $arremite = array('idpersonas'=>$idpersona,'idcartas'=>$this->idcartas,'rolpersona'=>'Emisor');
-     OperaBD::inserta('datos.cartaspersonas',$arremite);
+     if ($mercancias) {
+       return $mercancias;
+     }
+     return null;
    }
    function getEmisor(){
-     $idemisor = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Emisor'))[0];
-     $arridemisor = array('idpersonas'=>$idemisor['idpersonas']);
-     $emisor = OperaBD::selec('datos.personas',array('*'),'Persona',$arridemisor);
-     return $emisor;
-   }
-   function setReceptor($idpersona){
-     $arrrecibe = array('idpersonas'=>$idpersona,'idcartas'=>$this->idcartas,'rolpersona'=>'Receptor');
-     OperaBD::inserta('datos.cartaspersonas',$arrrecibe);
+     $arridemisor = array('idpersonas'=>$this->idemisor);
+     $emisor = OperaBD::selec('datos.personas',array('*'),'Persona',$arridemisor)[0];
+     if ($emisor) {
+       return $emisor;
+     }
+     return null;
    }
    function getReceptor(){
-     $idreceptor = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Receptor'))[0];
-     $arridreceptor = array('idpersonas'=>$idreceptor['idpersonas']);
-     $receptor = OperaBD::selec('datos.personas',array('*'),'Persona',$arridreceptor);
-     return $receptor;
+     $arridreceptor = array('idpersonas'=>$this->idreceptor);
+     $receptor = OperaBD::selec('datos.personas',array('*'),'Persona',$arridreceptor)[0];
+     if ($receptor) {
+       return $receptor;
+     }
+     return null;
    }
    function setMenciones($arridpersonas){
      foreach ($arridpersonas as $key => $idpersona) {
@@ -126,7 +130,10 @@ class Carta {
      foreach ($idmenciones as $key => $value) {
        $mencionados[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value)[0];
      }
-     return $mencionados;
+     if (isset($mencionados)) {
+       return $mencionados;
+     }
+     return null;
    }
    function getLugarEmision(){
      if($this->lugaremision == NULL){
@@ -142,7 +149,10 @@ class Carta {
      }
      $idlugar = array('idlugares'=>$this->lugarrecepcion);
      $lugar = OperaBD::selec('datos.lugares inner join datos.geometrias on lugares.gid = geometrias.gid',array('nombre, tipolugar,toponimo, st_asgeojson(geometrias.geom) as geojson'),null,$idlugar)[0];
-     return $lugar;
+     if ($lugar) {
+       return $lugar;
+     }
+     return null;
    }
    function setViaje($idviajes){
      $arrcartasviajes = array('idviajes' => $idviajes,'idcartas'=>$this->idcartas);
@@ -154,7 +164,10 @@ class Carta {
      foreach ($idmenciones as $key => $value) {
        $viajes[] = OperaBD::selec('datos.viajes',array('*'),'Viaje',$value)[0];
      }
-     return $viajes;
+     if (isset($viajes)) {
+       return $viajes;
+     }
+     return null;
    }
    function setAcontecimiento($idacontecimiento){
      $arrcartasacontecimiento = array('idacontecimiento' => $idacontecimiento,'idcartas'=>$this->idcartas);
@@ -166,7 +179,10 @@ class Carta {
      foreach ($idacontecimientos as $key => $value) {
        $acontecimientos[] = OperaBD::selec('datos.acontecimiento',array('*'),'Acontecimiento',$value)[0];
      }
-     return $acontecimientos;
+     if (isset($acontecimientos)) {
+       return $acontecimientos;
+     }
+     return null;
    }
 }
 ?>
