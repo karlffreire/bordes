@@ -18,13 +18,37 @@ function __autoload($className) {
   $edit = $_SESSION["editor"];
   $columnas;
   if ($pagina == 'cartas') {
-    $columnas = array('Fecha','Identificador','Asunto','Palabras clave');
+    $columnas = array('fecha','identificador','asunto','remitente','destinatario','idcartas');
+    $columnasb = array('fecha','identificador','asunto',"emisor.nombre||' '||emisor.apellidos as emisor","receptor.nombre||' '||receptor.apellidos as receptor",'idcartas');
+    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
+    $orden = array('fecha','identificador');
+    $datos = OperaBD::selec('datos.cartas inner join datos.personas emisor on cartas.idemisor = emisor.idpersonas left join datos.personas receptor on cartas.idreceptor = receptor.idpersonas',$columnasb,null,null,$orden);
   }
-  // else if ($pagina == 'viajes') {//MEJOR QUE SÓLO SE PUEDAN VER LOS VIAJES A PARTIR DE LAS CARTAS O PERSONAS
-  //   $columnas = array('Identificador','Origen','Destino','Fecha');
-  // }
+  else if ($pagina == 'viajes') {//MEJOR QUE SÓLO SE PUEDAN VER LOS VIAJES A PARTIR DE LAS CARTAS O PERSONAS
+    $columnas = array('Origen','Fecha','idviajes');
+    $columnasb = array('geometrias.toponimo','fechainicio','viajes.idviajes');
+    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
+    $orden = array('fechainicio');
+    $datos = OperaBD::selec('datos.viajes inner join datos.recorrido on viajes.idviajes = recorrido.idviajes inner join datos.geometrias on recorrido.gid = geometrias.gid',$columnasb,null,null,$orden);
+  }
   else if ($pagina == 'personas') {
-    $columnas = array('Nombre','Género','Tipo de persona','Fecha de nacimiento');
+    $columnas = array('nombre','apellidos','genero','tipopersona','fechanacimiento','idpersonas');
+    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
+    $orden = array('nombre','apellidos','fechanacimiento');
+    $datos = OperaBD::selec('datos.personas',$columnas,null,null,$orden);
+  }
+  else if ($pagina == 'acontecimientos') {
+    $columnas = array('nombre','fecha','idacontecimiento');
+    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
+    $orden = array('nombre','fecha');
+    $datos = OperaBD::selec('datos.acontecimiento',$columnas,null,null,$orden);
+  }
+  else if ($pagina == 'instituciones') {
+    $columnas = array('nombre','administracion','sede','idinstituciones');
+    $columnasb = array('instituciones.nombre','administracion','lugares.nombre as sede','idinstituciones');
+    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
+    $orden = array('nombre');
+    $datos = OperaBD::selec('datos.instituciones inner join datos.lugares on sede = lugares.idlugares',$columnasb,null,null,$orden);
   }
  ?>
 <!DOCTYPE html>
@@ -42,7 +66,7 @@ function __autoload($className) {
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
   </head>
-  <body onload="<?php echo "javascript:tablasDatos('$pagina')"; ?>">
+  <body onload="javascript:paginaTablas();">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
@@ -56,14 +80,38 @@ function __autoload($className) {
       <table class="table table-bordered table-list table-hover tabla-ppal">
         <thead>
           <tr>
-            <?php foreach ($columnas as $key => $titulo): ?>
-              <th>
-                <?php echo $titulo; ?>
+            <?php $i=0; foreach ($columnas as $key => $titulo): ?>
+              <th style="text-align:center;">
+                <?php ++$i;
+                  if ($i === count($columnas)){
+                    echo "<em class='fa fa-cog'></em>";
+                  }
+                  else{
+                    echo ucfirst($titulo);
+                  }
+                 ?>
               </th>
             <?php endforeach; ?>
           </tr>
         </thead>
         <tbody>
+          <?php foreach ($datos as $key => $fila): ?>
+            <tr>
+            <?php $i=0; foreach ($fila as $key => $celda): ?>
+              <td>
+                <?php
+                ++$i;
+                if ($i === count($fila)) {
+                  echo "<a href=modif-$pagina?id=$celda class='btn btn-default bot-pers'><em class='fa fa-pencil'></em><a><a href=borra-$pagina?id=$celda class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                }
+                else{
+                  echo $celda;
+                }
+                 ?>
+              </td>
+            <?php endforeach; ?>
+            </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>

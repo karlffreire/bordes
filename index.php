@@ -55,7 +55,8 @@ $edit = $_SESSION["editor"];
       </div>
       <h2>Personas</h2>
       <p>Visualizar y gestionar la información de personas incluidas en la base de datos.</p>
-      <p><a class="btn btn-default" href="./principal.php?p=personas" role="button">Personas</a></p>
+      <p><a class="btn btn-default" href="./principal.php?p=personas&f=" role="button">Lista</a></p>
+      <p><a class="btn btn-default" href="./nueva-persona.php" role="button">Añadir</a></p>
     </div>
     <div class="col-lg-6">
       <div class="icon-menu-init">
@@ -63,7 +64,8 @@ $edit = $_SESSION["editor"];
       </div>
       <h2>Cartas</h2>
       <p>Visualizar y gestionar la información de las cartas incluidas en la base de datos.</p>
-      <p><a class="btn btn-default" href="./principal.php?p=cartas" role="button">Cartas</a></p>
+      <p><a class="btn btn-default" href="./principal.php?p=cartas&f=" role="button">Lista</a></p>
+      <p><a class="btn btn-default" href="./nueva-carta.php" role="button">Añadir</a></p>
     </div>
     <!-- <div class="col-lg-4">
       <div class="icon-menu-init">
@@ -81,8 +83,8 @@ $edit = $_SESSION["editor"];
     <h4>Visualización y gestión de otros datos:</h4>
   </div>
   <div class="row" style="display: flex;justify-content: space-between;margin-top:25px;">
-    <p><a class="btn btn-default" href="./principal.php?p=acontecimientos" role="button">Acontecimientos</a></p>
-    <p><a class="btn btn-default" href="./principal.php?p=instituciones" role="button">Instituciones</a></p>
+    <p><a class="btn btn-default" href="./principal.php?p=acontecimientos&f=" role="button">Acontecimientos</a></p>
+    <p><a class="btn btn-default" href="./principal.php?p=instituciones&f=" role="button">Instituciones</a></p>
   </div>
 </div>
 

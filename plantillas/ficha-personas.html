@@ -1,0 +1,103 @@
+<div class="container" style="margin-top:6em;">
+  <h2>%persona%</h2>
+  <form class="" action="%accion%" method="post"  style="margin-top:3em;">
+    <div class="col-md-6">
+      <div class="form-group required">
+        <label class="control-label col-md-4">Nombre</label>
+        <div class="controls col-md-8 ">
+          <input class="form-control" name="nombre" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+        <label class="control-label col-md-4">Apellidos</label>
+        <div class="controls col-md-8 ">
+          <input class="form-control" name="apellidos" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-4">Fecha nacimiento</label>
+          <div class="controls col-md-4">
+            <input type="date" class="form-control" name="fechanacimiento" value="" style="margin-bottom: 10px" />
+          </div>
+          <div class="controls col-md-4">
+            <select id="confianzafechanacimiento" type="text" class="form-control" name="confianza_fecha_nacimiento" style="margin-bottom: 10px">
+              <option value="" selected disabled>Confianza</option>
+              <option value="1">Año</option>
+              <option value="2">Año y mes</option>
+              <option value="3">Año, mes y día</option>
+            </select>
+          </div>
+          <label class="control-label col-md-4">Fecha defunción</label>
+          <div class="controls col-md-4">
+            <input  type="date" class="form-control" name="fechadefuncion" value="" style="margin-bottom: 10px" />
+          </div>
+          <div class="controls col-md-4">
+            <select id="confianzafechadefuncion" type="text" class="form-control" name="confianza_fecha_muerte" style="margin-bottom: 10px">
+              <option value="" selected disabled>Confianza</option>
+              <option value="1">Año</option>
+              <option value="2">Año y mes</option>
+              <option value="3">Año, mes y día</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Género</label>
+        <div class="controls col-md-8 ">
+             <select class="form-control" name="genero" value="" style="margin-bottom: 10px">
+                <option value=""></option>
+                <option value="Mujer">Mujer</option>
+                <option value="Hombre">Hombre</option>
+            </select>
+        </div>
+        <label class="control-label col-md-4">Nacionalidad</label>
+        <div id="divpais" class="controls col-md-8" style="margin-bottom: 10px">
+            <select id="pais" class="form-control selec-pais" name="nacionalidad" value="">
+                <option value=""></option>
+            </select>
+        </div>
+        <label class="control-label col-md-4">Tipo de persona</label>
+        <div class="controls col-md-8 ">
+             <select class="form-control" name="tipopersona" value="" style="margin-bottom: 10px">
+                <option value=""></option>
+                <option value="Indio">Indio</option>
+                <option value="Noble">Noble</option>
+                <option value="Negro">Negro</option>
+                <option value="Esclavo">Esclavo</option>
+                <option value="Viudo">Viudo</option>
+            </select>
+        </div>
+        <label class="control-label col-md-4">Profesión</label>
+        <div class="controls col-md-8 ">
+          <input class="form-control" name="profesion" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+        <label class="control-label col-md-4">Imagen</label>
+        <div class="controls col-md-8 ">
+          <input class="form-control" placeholder="url" name="urlimagen" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <hr>
+      <div class="form-group">
+        <label class="control-label col-md-2">Lugar nacimiento</label>
+        <div id="divpais" class="controls col-md-5" style="margin-bottom: 10px">
+            <select id="pais" class="form-control selec-pais" name="nacionalidad" value="">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="controls col-md-5 ">
+          <input class="form-control" name="lugarnacimiento" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+        <label class="control-label col-md-2">Lugar defunción</label>
+        <div id="divpais" class="controls col-md-5" style="margin-bottom: 10px">
+            <select id="pais" class="form-control selec-pais" name="nacionalidad" value="">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="controls col-md-5 ">
+          <input class="form-control" name="lugardefuncion" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
