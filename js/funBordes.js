@@ -32,26 +32,26 @@ function cargaPaises(callback){
 }
 
 function ponSelPais(resultado){
-  $('.selec-pais').select2({
-  data:resultado
-  });
+    $('.selec-pais').select2({
+    data:resultado
+  }).done(ponValPais());
 }
 
 
-function habCiudad(){
-	var campo = document.getElementsByClassName('selec-ciudad');
-	campo[0].disabled = false;
-	ponSelecCiudad();
+function habToponimo(origen,idsel){
+	var campo = document.getElementById(idsel);
+	campo.disabled = false;
+	ponSelecTopo(origen,idsel);
 }
 
-function ponSelecCiudad(){
-	var idpais = document.getElementsByClassName('selec-pais')[0].value;
-	$(".selec-ciudad").select2({
+function ponSelecTopo(origen,idsel){
+	var idpais = document.getElementById(origen.id).value;
+	$("#"+idsel).select2({
 		minimumInputLength: 3,
 		ajax: {
 			delay: 450,
 			type: 'GET',
-			url: "./datos/buscaCiudad.php",
+			url: "./datos/buscaToponimo.php",
 	   		dataType: 'json',
 	   		data: function (params) {
             	var consulta = {
@@ -66,8 +66,16 @@ function ponSelecCiudad(){
                 };
             }
         },
-		placeholder: "Selecciona ciudad",
+		placeholder: "Selecciona topónimo",
 		cache: true,
 		escapeMarkup: function (markup) { return markup; }
 	});
+}
+
+function alertaBorrado(url){
+    if (confirm("Esto borrará un registro") == true) {
+        window.location.href = url;
+    } else {
+
+    }
 }

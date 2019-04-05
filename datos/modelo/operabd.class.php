@@ -83,7 +83,7 @@ class OperaBD {
       $mbd = null;
     }
     catch (PDOException $e){
-      echo $e->getMessage(); //HACER FUNCION PARA MANEJAR ERRORES
+      return $e->getMessage(); //HACER FUNCION PARA MANEJAR ERRORES
     }
   }
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -139,7 +139,7 @@ class OperaBD {
       $mbd = null;
     }
     catch (PDOException $e){
-      echo 'Error en Base de Datos: '.$e->getMessage(); //HACER FUNCION PARA MANEJAR ERRORES
+      return $e->getMessage(); //HACER FUNCION PARA MANEJAR ERRORES
     }
     return $datos;
   }

@@ -16,7 +16,7 @@ require './datos/modelo/operabd.class.php';
 
 //SELECCION DE UNA PERSONA CON VARIOS ATRIBUTOS
  $arrprop  = array('idpersonas','nombre','apellidos','nacionalidad','genero');
- $where = array('nombre' => 'Pedro');
+ $where = array('idpersonas' => 29);
  $orden = array('nombre');
  $prueba = OperaBD::selec('datos.personas',$arrprop,'Persona',$where,$orden)[0];
 

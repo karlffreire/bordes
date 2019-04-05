@@ -37,7 +37,6 @@ class Persona{
       $this->lugarnacimiento = (isset($arrprop['lugarnacimiento'])) ? $arrprop['lugarnacimiento'] : NULL;
       $this->fechadefuncion = (isset($arrprop['fechadefuncion'])) ? $arrprop['fechadefuncion'] : NULL;
       $this->lugardefuncion = (isset($arrprop['lugardefuncion'])) ? $arrprop['lugardefuncion'] : NULL;
-      $this->propiedades = (isset($arrprop['propiedades'])) ? $arrprop['propiedades'] : NULL;
       $this->urlimagen = (isset($arrprop['urlimagen'])) ? $arrprop['urlimagen'] : NULL;
       $this->confianzafechanacimiento = (isset($arrprop['confianzafechanacimiento'])) ? $arrprop['confianzafechanacimiento'] : NULL;
       $this->confianzafechadefuncion = (isset($arrprop['confianzafechadefuncion'])) ? $arrprop['confianzafechadefuncion'] : NULL;
@@ -47,7 +46,7 @@ class Persona{
   function almacena(){
     $arrprop;
     foreach ($this as $nombre => $valor) {
-      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia') { //esto hay que introducirlo utilizando su método
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'propiedades') { //esto hay que introducirlo utilizando su método
         if ($valor) {
           $arrprop[strtolower($nombre)] = $valor;
         }
@@ -58,16 +57,28 @@ class Persona{
   function modifica(){
     $arrprop;
     foreach ($this as $nombre => $valor) {
-      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'idpersonas') {
+      if ($nombre != 'ejerce' && $nombre != 'ostenta' && $nombre != 'titulos' && $nombre != 'homonimia' && $nombre != 'propiedades' && $nombre != 'idpersonas') {
          $arrprop[strtolower($nombre)] = $valor;
       }
      }
      $cual = array('idpersonas'=>$this->idpersonas);
-    OperaBD::modifica('datos.personas',$arrprop,$cual);
+     OperaBD::modifica('datos.personas',$arrprop,$cual);
+
   }
-  function borra(){
+  function borra(){//COMPROBAR PRIMERO SI TIENE CARTAS
+    $cartas = OperaBD::selec('datos.cartas',array('identificador'),null,array('idemisor'=>$this->idpersonas,'idreceptor'=>$this->idpersonas),null,'OR');
+    if ($cartas) {
+      $identificadores ='';
+      foreach ($cartas as $key => $value) {
+        $identificadores .= $value['identificador'].' - ';
+      }
+      return 'No se puede borrar porque está incluida en las cartas con los siguientes identificadores:\n'.$identificadores;
+    }
      $cual = array('idpersonas'=>$this->idpersonas);
-    OperaBD::borra('datos.personas',$cual);
+     $resultado = OperaBD::borra('datos.personas',$cual);
+     if ($resultado) {
+       return $resultado;
+     }
   }
   function getNacionalidad(){
     $campo = array('pais');
@@ -80,7 +91,7 @@ class Persona{
     OperaBD::inserta('datos.homonimias',$arrhomonimia);
   }
   function getHomonimias(){
-    $campos = array('tipohomonimia','nombre','apellidos');
+    $campos = array('nombre','apellidos','tipohomonimia','idhomonimias');
     $id = array('idpersonas' => $this->idpersonas );
     $orden = array('tipohomonimia');
     $homonimias = OperaBD::selec('datos.homonimias',$campos,null,$id,$orden);
@@ -102,7 +113,7 @@ class Persona{
     OperaBD::inserta('datos.cargos',$arrcargo);
   }
   function getCargos(){
-    $campos = array('cargo','fechainicio','confianzafechainicio','fechafin','confianzafechafin','instituciones.nombre');
+    $campos = array('cargo','datos.fecha_cierta(fechainicio,confianzafechainicio) as fechainicio','datos.fecha_cierta(fechafin,confianzafechafin) as fechafin','instituciones.nombre','cargos.idcargos');
     $id = array('idpersonas' => $this->idpersonas );
     $orden = array('fechainicio');
     $cargos = OperaBD::selec('datos.cargos INNER JOIN datos.instituciones ON cargos.idinstituciones = instituciones.idinstituciones',$campos,null,$id,$orden);
@@ -169,6 +180,28 @@ class Persona{
       $parientes[] = $pariente;
     }
     return $parientes;
+  }
+  function getTxtLugarNacimiento(){
+    if ($this->lugarnacimiento) {
+      $campo = array('toponimo');
+      $id = array('gid' => $this->lugarnacimiento);
+      $txtlugnac = OperaBD::selec('datos.geometrias',$campo,null,$id)[0];
+      if ($txtlugnac) {
+        return $txtlugnac['toponimo'];
+      }
+    }
+    return '';
+  }
+  function getTxtLugarDefuncion(){
+    if ($this->lugardefuncion) {
+      $campo = array('toponimo');
+      $id = array('gid' => $this->lugardefuncion);
+      $txtlugdef = OperaBD::selec('datos.geometrias',$campo,null,$id)[0];
+      if ($txtlugdef) {
+        return $txtlugdef['toponimo'];
+      }
+    }
+    return '';
   }
 }
 

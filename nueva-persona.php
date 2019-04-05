@@ -30,15 +30,20 @@ function __autoload($className) {
   </head>
   <body onload="javascript:cargaPaises(ponSelPais);">
     <?php
-    $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-    echo $cabecera;
-
-    $fichapersona = file_get_contents('./plantillas/ficha-personas.html');
-    $nuevapersona = str_replace(array('%persona%','%accion%'),array('Nueva persona','./datos/intropersona.php'),$fichapersona);
-    echo $nuevapersona;
-
+      $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
+      echo $cabecera;
+    ?>
+    <div class="container" style="margin-top:6em;">
+    <?php
+      $fichapersona = file_get_contents('./plantillas/ficha-personas.html');
+      $nuevapersona = str_replace(array('%persona%','%accion%','%fa%'),array('Nueva persona','./datos/intropersona.php','fa-user-plus'),$fichapersona);
+      echo $nuevapersona;
+    ?>
+    </div>
+    <?php
     $pie = file_get_contents('./plantillas/pie.html');
     echo $pie;
-     ?>
+
+      ?>
   </body>
 </html>
