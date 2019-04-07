@@ -7,6 +7,7 @@ function __autoload($className) {
 }
   require_once './datos/modelo/conexion.php';
   $credenciales = explode('#',$_COOKIE["bordesarch"]);
+  $edit = $_SESSION["editor"];
   if (!isset($_COOKIE["bordesarch"]) || $_SESSION['proyecto'] != 'bordes') {
     header('location:./entrando.php');
   }
@@ -15,7 +16,6 @@ function __autoload($className) {
     header('location:./index.php');
   }
   $pagina = filter_var($_GET['p'],FILTER_SANITIZE_STRING);
-  $edit = $_SESSION["editor"];
   $columnas;
   $persona = $_SESSION['persona'];
   if ($pagina == 'homonimias') {
@@ -25,6 +25,7 @@ function __autoload($className) {
   else if ($pagina == 'cargos') {
     $columnas = array('Cargo','Fechainicio','Fecha fin','Institucion','idcargos');
     $datos = $persona->getCargos();
+    var_dump($datos);
     //HACER ECHO DE UN SCRIPT PARA ALIMENTAR EL SELECT DE INSTITUCIONES DESDE datos/cargaInstituciones.php
     //PONER LLAMADA AJAX EN funBordes.js
   }
@@ -45,13 +46,16 @@ function __autoload($className) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
   </head>
-  <body onload="javascript:paginaTablas();">
+  <body onload="javascript:paginaTablas();cargaListados(<?php echo "'".$pagina."'" ?>)">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
@@ -59,7 +63,7 @@ function __autoload($className) {
     <div class="container" style="margin-top:7em;">
       <div class="row">
         <h2>
-          <?php echo ucfirst($pagina); ?>
+          <?php echo $persona->nombre.' '.$persona->apellidos.': '.ucfirst($pagina); ?>
         </h2>
       </div>
       <div class="row">
@@ -88,14 +92,14 @@ function __autoload($className) {
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($datos as $key => $fila): ?>
+             <?php foreach ($datos as $key => $fila): ?>
               <tr>
                 <?php $i=0; foreach ($fila as $key => $celda): ?>
                   <td>
                     <?php
                     ++$i;
                     if ($i === count($fila)) {
-                      echo "<a href=javascript:alertaBorrado('./datos/borra-$pagina?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                      echo "<a href=javascript:alertaBorrado('./datos/borra-$pagina.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
                     }
                     else{
                       echo $celda;

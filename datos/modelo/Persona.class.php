@@ -113,7 +113,7 @@ class Persona{
     OperaBD::inserta('datos.cargos',$arrcargo);
   }
   function getCargos(){
-    $campos = array('cargo','datos.fecha_cierta(fechainicio,confianzafechainicio) as fechainicio','datos.fecha_cierta(fechafin,confianzafechafin) as fechafin','instituciones.nombre','cargos.idcargos');
+    $campos = array('cargo','datos.fecha_cierta(cargos.fechainicio,cargos.confianzafechainicio) as fechainicio','datos.fecha_cierta(cargos.fechafin,cargos.confianzafechafin) as fechafin','instituciones.nombre','cargos.idcargos');
     $id = array('idpersonas' => $this->idpersonas );
     $orden = array('fechainicio');
     $cargos = OperaBD::selec('datos.cargos INNER JOIN datos.instituciones ON cargos.idinstituciones = instituciones.idinstituciones',$campos,null,$id,$orden);

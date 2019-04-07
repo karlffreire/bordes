@@ -102,7 +102,9 @@ function __autoload($className) {
                 <?php
                 ++$i;
                 if ($i === count($fila)) {
-                  echo "<a href=modif-$pagina?id=$celda class='btn btn-default bot-pers'><em class='fa fa-pencil'></em></a><a href=javascript:alertaBorrado('./datos/borra-$pagina?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                  if ($edit) {
+                    echo "<a href=modif-$pagina.php?id=$celda class='btn btn-default bot-pers'><em class='fa fa-pencil'></em></a><a href=javascript:alertaBorrado('./datos/borra-$pagina.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                  }
                 }
                 else{
                   echo $celda;

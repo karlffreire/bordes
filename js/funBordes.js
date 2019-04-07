@@ -79,3 +79,32 @@ function alertaBorrado(url){
 
     }
 }
+
+function cargaListados(pagina){
+  if (pagina == 'cargos') {
+    cargaInstituciones(ponSelInstitucion);
+  }
+  else if (pagina == 'titulos') {
+
+  }
+}
+
+function cargaInstituciones(callback){
+  $.ajax({
+    url: './datos/cargaInstituciones.php',
+    success: function(response){
+        if (response) {
+          callback(response);
+        }
+        else{
+          alert('Error cargando las instituciones');
+        }
+      }
+  });
+}
+
+function ponSelInstitucion(resultado){
+    $('.selec-insti').select2({
+    data:resultado
+  });
+}
