@@ -172,3 +172,25 @@ function ponSelObjetos(resultado){
     data:resultado
   });
 }
+
+function ponSelTramites(){
+    var tramites = {
+      [
+       {
+         "id": "Fe de vida",
+         "text": "Fe de vida"
+       },
+       {
+         "id": "Deudas",
+         "text": "Deudas"
+       },
+       {
+         "id": 3,
+         "text": "Poderes"
+       }
+     ]
+    };
+    $('.sel-tramites').select2({
+    data:tramites
+  });
+}

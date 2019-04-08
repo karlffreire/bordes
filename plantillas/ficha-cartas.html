@@ -1,0 +1,110 @@
+<h2>%carta%</h2>
+<form id="form-carta" class="" action="%accion%" method="post" style="margin-top:3em;">
+  <div class="col-md-6">
+    <div class="form-group required">
+      <label class="control-label col-md-4">Remitente</label>
+      <div class="controls col-md-8 " style="margin-bottom: 10px">
+        <select id="idemisor" class="form-control selec-persona" name="idemisor">
+          <option value=""></option>
+        </select>
+      </div>
+      <label class="control-label col-md-4">Destinatario</label>
+      <div class="controls col-md-8 " style="margin-bottom: 10px">
+        <select id="idreceptor" class="form-control selec-persona" name="idreceptor">
+          <option value=""></option>
+        </select>
+      </div>
+
+      <label class="control-label col-md-4">Identificador</label>
+      <div class="controls col-md-8 ">
+        <input id="identificador" class="form-control" name="identificador" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-4">Número registro</label>
+      <div class="controls col-md-8 ">
+        <input id="numeroregistro" class="form-control" name="numeroregistro" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-4">Palabras clave</label>
+      <div class="controls col-md-8 ">
+        <input id="palabrasclave" class="form-control" name="palabrasclave[]" multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-4">Fecha</label>
+        <div class="controls col-md-4">
+          <input id="fecha" type="date" class="form-control" name="fecha" value="" style="margin-bottom: 10px" />
+        </div>
+        <div class="controls col-md-4">
+          <select id="confianzafecha" type="text" class="form-control" name="confianzafecha" style="margin-bottom: 10px">
+            <option value="" selected disabled>Confianza</option>
+            <option value="1">Año</option>
+            <option value="2">Año y mes</option>
+            <option value="3">Año, mes y día</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label col-md-4">Asunto</label>
+      <div class="controls col-md-8 ">
+        <input id="asunto" class="form-control" name="asunto" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-4">Asunto clave</label>
+      <div class="controls col-md-8 ">
+        <input id="asuntoclave" class="form-control" name="asuntoclave" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-4">Trámites legales</label>
+      <div class="controls col-md-8 ">
+        <input id="tramiteslegales" class="form-control sel-tramites" name="tramiteslegales[]" multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-4">url imagen</label>
+      <div class="controls col-md-8 ">
+        <input id="urlimagen" class="form-control" name="urlimagen" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-4">Observaciones honra</label>
+      <div class="controls col-md-8 ">
+        <input id="observacioneshonra" class="form-control" name="observacioneshonra" multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <div class="controls col-md-12">
+        <textarea  id="notas" class="form-control" placeholder="Notas" name="notas" rows="2" cols="60" style="margin-bottom: 10px"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="row">
+            <label id="eti-nac" class="control-label col-md-2">Lugar emisión</label>
+            <div id="divpais" class="controls col-md-5 lug-emi" style="margin-bottom: 10px">
+              <select id="paisemi" class="form-control selec-pais" name="paisemision" value="" onchange="javascript:habToponimo(this,'lugarnacimiento');">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="controls col-md-5 ">
+              <select id="lugaremision" class="form-control selec-topo lug-emi" name="lugaremision" value="" disabled="disabled">
+                <option></option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <label id="eti-def" class="control-label col-md-2">Lugar recepción</label>
+            <div id="divpais" class="controls col-md-5 lug-rec" style="margin-bottom: 10px">
+              <select id="paisrec" class="form-control selec-pais" name="paisrecepcion" value="" onchange="javascript:habToponimo(this,'lugardefuncion');">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="controls col-md-5 ">
+              <select id="lugarrecepcion" class="form-control selec-topo lug-rec" name="lugarrecepcion" value="" disabled="disabled">
+                <option></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button id="boton-accion" type="submit" class="btn btn-success" style="padding:1.5em;border-radius:50%;"><i class="fa %fa% fa-2x"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

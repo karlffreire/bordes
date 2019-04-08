@@ -56,7 +56,7 @@ $edit = $_SESSION["editor"];
       <h2>Personas</h2>
       <p>Visualizar y gestionar la información de personas incluidas en la base de datos.</p>
       <p><a class="btn btn-primary" href="./principal.php?p=personas&f=" role="button">Ver listado</a></p>
-      <p><a class="btn btn-success" href="./nueva-persona.php" role="button">Añadir persona</a></p>
+      <p><a class="btn btn-success" href="./nueva-personas.php" role="button">Añadir persona</a></p>
     </div>
     <div class="col-lg-6">
       <div class="icon-menu-init">
@@ -65,7 +65,7 @@ $edit = $_SESSION["editor"];
       <h2>Cartas</h2>
       <p>Visualizar y gestionar la información de las cartas incluidas en la base de datos.</p>
       <p><a class="btn btn-primary" href="./principal.php?p=cartas&f=" role="button">Ver listado</a></p>
-      <p><a class="btn btn-success" href="./nueva-carta.php" role="button">Añadir carta</a></p>
+      <p><a class="btn btn-success" href="./nueva-cartas.php" role="button">Añadir carta</a></p>
     </div>
     <!-- <div class="col-lg-4">
       <div class="icon-menu-init">

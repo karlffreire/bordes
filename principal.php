@@ -73,50 +73,55 @@ function __autoload($className) {
       echo $cabecera;
     ?>
     <div class="container" style="margin-top:7em;">
-      <caption>
-        <h2>
-          <?php echo ucfirst($pagina); ?>
-        </h2>
-      </caption>
-      <table class="table table-bordered table-list table-hover tabla-ppal">
-        <thead>
-          <tr>
-            <?php $i=0; foreach ($columnas as $key => $titulo): ?>
-              <th style="text-align:center;">
-                <?php ++$i;
+      <div class="row">
+        <caption>
+          <h2>
+            <?php echo ucfirst($pagina); ?>
+          </h2>
+        </caption>
+        <table class="table table-bordered table-list table-hover tabla-ppal">
+          <thead>
+            <tr>
+              <?php $i=0; foreach ($columnas as $key => $titulo): ?>
+                <th style="text-align:center;">
+                  <?php ++$i;
                   if ($i === count($columnas)){
                     echo "<em class='fa fa-cog'></em>";
                   }
                   else{
                     echo ucfirst($titulo);
                   }
-                 ?>
-              </th>
-            <?php endforeach; ?>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($datos as $key => $fila): ?>
-            <tr>
-            <?php $i=0; foreach ($fila as $key => $celda): ?>
-              <td>
-                <?php
-                ++$i;
-                if ($i === count($fila)) {
-                  if ($edit) {
-                    echo "<a href=modif-$pagina.php?id=$celda class='btn btn-default bot-pers'><em class='fa fa-pencil'></em></a><a href=javascript:alertaBorrado('./datos/borra-$pagina.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
-                  }
-                }
-                else{
-                  echo $celda;
-                }
-                 ?>
-              </td>
-            <?php endforeach; ?>
+                  ?>
+                </th>
+              <?php endforeach; ?>
             </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <?php foreach ($datos as $key => $fila): ?>
+              <tr>
+                <?php $i=0; foreach ($fila as $key => $celda): ?>
+                  <td>
+                    <?php
+                    ++$i;
+                    if ($i === count($fila)) {
+                      if ($edit) {
+                        echo "<a href=modif-$pagina.php?id=$celda class='btn btn-default bot-pers'><em class='fa fa-pencil'></em></a><a href=javascript:alertaBorrado('./datos/borra-$pagina.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                      }
+                    }
+                    else{
+                      echo $celda;
+                    }
+                    ?>
+                  </td>
+                <?php endforeach; ?>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <p><a class="btn btn-success" href="./nueva-<?php echo $pagina;?>.php" role="button">Añadir <?php echo $pagina;?></a></p>
+      </div>
     </div>
 
     <?php
