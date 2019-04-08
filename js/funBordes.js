@@ -174,7 +174,7 @@ function ponSelObjetos(resultado){
 }
 
 function ponSelTramites(){
-    var tramites = {
+    tramites =
       [
        {
          "id": "Fe de vida",
@@ -185,11 +185,11 @@ function ponSelTramites(){
          "text": "Deudas"
        },
        {
-         "id": 3,
+         "id": "Poderes",
          "text": "Poderes"
        }
      ]
-    };
+    ;
     $('.sel-tramites').select2({
     data:tramites
   });
