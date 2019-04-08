@@ -84,8 +84,12 @@ function cargaListados(pagina){
   if (pagina == 'cargos') {
     cargaInstituciones(ponSelInstitucion);
   }
-  else if (pagina == 'titulos') {
-
+  else if (pagina == 'parientes') {
+    cargaPersonas(ponSelPersonas);
+    cargaParentescos(ponSelParentescos);
+  }
+  if (pagina == 'propiedades') {
+    cargaObjetos(ponSelObjetos);
   }
 }
 
@@ -105,6 +109,66 @@ function cargaInstituciones(callback){
 
 function ponSelInstitucion(resultado){
     $('.selec-insti').select2({
+    data:resultado
+  });
+}
+
+function cargaPersonas(callback){
+  $.ajax({
+    url: './datos/cargaPersonas.php',
+    success: function(response){
+        if (response) {
+          callback(response);
+        }
+        else{
+          alert('Error cargando personas');
+        }
+      }
+  });
+}
+
+function ponSelPersonas(resultado){
+    $('.selec-persona').select2({
+    data:resultado
+  });
+}
+
+function cargaParentescos(callback){
+  $.ajax({
+    url: './datos/cargaParentescos.php',
+    success: function(response){
+        if (response) {
+          callback(response);
+        }
+        else{
+          alert('Error cargando personas');
+        }
+      }
+  });
+}
+
+function ponSelParentescos(resultado){
+    $('.selec-parentesco').select2({
+    data:resultado
+  });
+}
+
+function cargaObjetos(callback){
+  $.ajax({
+    url: './datos/cargaObjetos.php',
+    success: function(response){
+        if (response) {
+          callback(response);
+        }
+        else{
+          alert('Error cargando objetos');
+        }
+      }
+  });
+}
+
+function ponSelObjetos(resultado){
+    $('.selec-objeto').select2({
     data:resultado
   });
 }

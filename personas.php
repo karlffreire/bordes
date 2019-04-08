@@ -25,15 +25,25 @@ function __autoload($className) {
   else if ($pagina == 'cargos') {
     $columnas = array('Cargo','Fechainicio','Fecha fin','Institucion','idcargos');
     $datos = $persona->getCargos();
-    var_dump($datos);
-    //HACER ECHO DE UN SCRIPT PARA ALIMENTAR EL SELECT DE INSTITUCIONES DESDE datos/cargaInstituciones.php
-    //PONER LLAMADA AJAX EN funBordes.js
   }
   else if ($pagina == 'titulos') {
-
+    $columnas = array('Denominación','Fecha concesión','Fecha desposesión','Observaciones','idtitulos');
+    $datos = $persona->getTitulos();
   }
   else if ($pagina == 'parientes') {
-
+    $columnas = array('Persona','Parentesco','idparentesco');
+    $datoscrudo = $persona->getParientes();
+    $i=0;
+    foreach ($datoscrudo as $key => $pariente) {
+      $datos[$i]['persona'] = $pariente->nombre.' '.$pariente->apellidos;
+      $datos[$i]['parentesco'] = ltrim(rtrim($pariente->parentesco, "}"),"{");
+      $datos[$i]['idparentesco'] = $pariente->idparentesco;
+      ++$i;
+    }
+  }
+  else if ($pagina == 'propiedades') {
+    $columnas = array('Objetos','idobjetos');
+    $datos = $persona->getPropiedades();
   }
 
  ?>
@@ -49,16 +59,13 @@ function __autoload($className) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
   </head>
-  <body onload="javascript:paginaTablas();cargaListados(<?php echo "'".$pagina."'" ?>)">
+  <body onload="cargaListados(<?php echo "'".$pagina."'" ?>)">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-      echo $cabecera;
+    //  echo $cabecera;
     ?>
     <div class="container" style="margin-top:7em;">
       <div class="row">
@@ -92,6 +99,7 @@ function __autoload($className) {
             </tr>
           </thead>
           <tbody>
+            <?php if ($datos): ?>
              <?php foreach ($datos as $key => $fila): ?>
               <tr>
                 <?php $i=0; foreach ($fila as $key => $celda): ?>
@@ -109,6 +117,7 @@ function __autoload($className) {
                 <?php endforeach; ?>
               </tr>
             <?php endforeach; ?>
+          <?php endif; ?>
           </tbody>
         </table>
       </div>

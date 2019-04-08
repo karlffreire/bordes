@@ -121,10 +121,11 @@ class Persona{
   }
   function setTitulo($arrtitulo){//$arrtitulo: array asociativo con el nombre del campo en la clave y el valor en el valor
     $arrtitulo['idpersonas'] = $this->idpersonas;
-    OperaBD::inserta('datos.titulos',$arrtitulo);
+    $inserta = OperaBD::inserta('datos.titulos',$arrtitulo);
+    return $inserta;
   }
   function getTitulos(){
-    $campos = array('denominacion','fechaconcesion','confianzafechaconcesion','fechadesposesion','confianzafechadesposesion','observaciones');
+    $campos = array('denominacion','datos.fecha_cierta(fechaconcesion,confianzafechaconcesion) as fechaconcesion', 'datos.fecha_cierta(fechadesposesion,confianzafechadesposesion) as fechadesposesion', 'observaciones', 'idtitulos');
     $id = array('idpersonas' => $this->idpersonas );
     $orden = array('fechaconcesion');
     $titulos = OperaBD::selec('datos.titulos',$campos,null,$id,$orden);
@@ -135,51 +136,58 @@ class Persona{
     OperaBD::inserta('datos.personasobjetos',$arrobjeto);
   }
   function getPropiedades(){
-    $objetos;
     $id = array('idpersonas' => $this->idpersonas );
     $arrprop =  array('idobjetos');
     $idsobjetos = OperaBD::selec('datos.personasobjetos',$arrprop,null,$id);
     foreach ($idsobjetos as $key => $value) {
-      $objetos[] = OperaBD::selec('datos.objetos',array('nombre'),null,$value)[0];
+      $objetos[] = OperaBD::selec('datos.objetos',array('nombre','idobjetos'),null,$value)[0];
     }
-    return $objetos;
+    if (isset($objetos)) {
+      return $objetos;
+    }
+    return null;
   }
   function setPariente($arrpariente){//$arrpariente: array asociativo con el nombre del campo en la clave y el valor en el valor
     $arrpariente['idsujeto'] = $this->idpersonas;
     OperaBD::inserta('datos.parentesco',$arrpariente);
   }
-  function getParientes(){//Devuelve un array de personas con una propiedad extra: parentesco
-    $idsparientes;
+  function getParientes(){//Devuelve un array de personas con dos propiedades extra: parentesco e idparentesco
     $parientes;
-    $campos = array('idsujeto','idobjeto','idtiporel');
+    $campos = array('idsujeto','idobjeto','idtiporel','idparentesco');
     $condicion = array('idsujeto' => $this->idpersonas,'idobjeto' => $this->idpersonas );
     $parentescos = OperaBD::selec('datos.parentesco',$campos,null,$condicion,null,'OR');
     foreach ($parentescos as $key => $pariente) {
       if ($pariente['idsujeto'] != $this->idpersonas) {
         $idsparientes[]=array(
           'idpersona'=>$pariente['idsujeto'],
-          'idtiporel'=>$pariente['idtiporel']
+          'idtiporel'=>$pariente['idtiporel'],
+          'idparentesco'=>$pariente['idparentesco']
         );
       }
       if ($pariente['idobjeto'] != $this->idpersonas) {
         $idsparientes[]=array(
           'idpersona'=>$pariente['idobjeto'],
-          'idtiporel'=>$pariente['idtiporel']
+          'idtiporel'=>$pariente['idtiporel'],
+          'idparentesco'=>$pariente['idparentesco']
         );
       }
     }
-    foreach ($idsparientes as $key => $idpariente) {
-      $where = array('idpersonas' => $idpariente['idpersona']);
-      $pariente = OperaBD::selec('datos.personas',array('*'),'Persona',$where)[0];
-      $mbd = ConBD::conectaBD();
-      $sentencia = $mbd->prepare("select datos.txt_relaciones(:idrel) as relacion;");
-      $sentencia->bindValue(':idrel',$idpariente['idtiporel']);
-      $sentencia->execute();
-      $mbd = null;
-      $pariente->parentesco = $sentencia->fetch()['relacion'];
-      $parientes[] = $pariente;
+    if (isset($idsparientes)) {
+      foreach ($idsparientes as $key => $idpariente) {
+        $where = array('idpersonas' => $idpariente['idpersona']);
+        $pariente = OperaBD::selec('datos.personas',array('*'),'Persona',$where)[0];
+        $mbd = ConBD::conectaBD();
+        $sentencia = $mbd->prepare("select datos.txt_relaciones(:idrel) as relacion;");
+        $sentencia->bindValue(':idrel',$idpariente['idtiporel']);
+        $sentencia->execute();
+        $mbd = null;
+        $pariente->parentesco = $sentencia->fetch()['relacion'];
+        $pariente->idparentesco = $idpariente['idparentesco'];
+        $parientes[] = $pariente;
+      }
+      return $parientes;
     }
-    return $parientes;
+    return null;
   }
   function getTxtLugarNacimiento(){
     if ($this->lugarnacimiento) {

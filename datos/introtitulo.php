@@ -16,7 +16,7 @@ foreach ($_POST as $key => $value) {
   }
 }
 $persona = $_SESSION['persona'];
-$persona->setCargo($_POST);
+$persona->setTitulo($_POST);
 
-header('location:../personas.php?p=cargos');
+header('location:../personas.php?p=titulos');
  ?>

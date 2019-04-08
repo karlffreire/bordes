@@ -11,14 +11,11 @@ function __autoload($className) {
     header('location:./entrando.php');
   }
 
-foreach ($_POST as $key => $value) {
-  if($value=="") {
-    $_POST[$key] = NULL;
-  }
-}
+$orden = array('categoria');
+$parecntescos = OperaBD::selec('datos.tiporelacion',array("idtiporel as id","datos.txt_relaciones(idtiporel) as text"),null,null,null);
+$parecntescosjson = json_encode($parecntescos);
 
-$persona = $_SESSION['persona'];
-$persona->setHomonimia($_POST);
+header('Content-type:application/json;charset=utf-8');
+echo $parecntescosjson;
 
-header('location:../personas.php?p=homonimias');
  ?>

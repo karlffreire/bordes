@@ -1,0 +1,49 @@
+<form id="form-titulo" class="" action="./datos/introtitulo.php" method="post" style="margin-top:3em;">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row">
+        <div class="form-group required">
+          <label class="control-label col-md-2">Denominación</label>
+          <div class="controls col-md-4 ">
+            <input id="denominacion" class="form-control" name="denominacion" value="" style="margin-bottom: 10px" type="text" />
+          </div>
+          <label class="control-label col-md-2">Observaciones</label>
+          <div class="controls col-md-4">
+            <textarea  id="observaciones" class="form-control" name="observaciones" rows="2" cols="80" style="margin-bottom: 10px"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label class="control-label col-md-2">Fecha concesión</label>
+          <div class="controls col-md-2">
+            <input id="fechaconcesion" type="date" class="form-control" name="fechaconcesion" value="" style="margin-bottom: 10px" />
+          </div>
+          <div class="controls col-md-2">
+            <select id="confianzafechaconcesion" type="text" class="form-control" name="confianzafechaconcesion" style="margin-bottom: 10px">
+              <option value="" selected disabled>Confianza</option>
+              <option value="1">Año</option>
+              <option value="2">Año y mes</option>
+              <option value="3">Año, mes y día</option>
+            </select>
+          </div>
+          <label class="control-label col-md-2">Fecha desposesión</label>
+          <div class="controls col-md-2">
+            <input id="fechadesposesion" type="date" class="form-control" name="fechadesposesion" value="" style="margin-bottom: 10px" />
+          </div>
+          <div class="controls col-md-2">
+            <select id="confianzafechadesposesion" type="text" class="form-control" name="confianzafechadesposesion" style="margin-bottom: 10px">
+              <option value="" selected disabled>Confianza</option>
+              <option value="1">Año</option>
+              <option value="2">Año y mes</option>
+              <option value="3">Año, mes y día</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button id="boton-accion" type="submit" class="btn btn-success" style="padding:0.5em;width:100%;">Añadir</button>
+    </div>
+  </div>
+</form>
