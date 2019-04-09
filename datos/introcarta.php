@@ -33,5 +33,5 @@ else {
 }
 $carta->almacena();
 
-//header('location:../modif-c.php?id='.$persona->idpersonas);
+header('location:../modif-cartas.php?id='.$carta->idcartas);
  ?>
