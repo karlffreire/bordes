@@ -28,6 +28,8 @@ class Carta {
       $this->idcartas = $sentencia->fetch()['nextval'];
     }
     if ($arrprop) {
+      $this->idemisor =  (isset($arrprop['idemisor'])) ? $arrprop['idemisor'] : NULL;
+      $this->idreceptor =  (isset($arrprop['idreceptor'])) ? $arrprop['idreceptor'] : NULL;
       $this->identificador = (isset($arrprop['identificador'])) ? $arrprop['identificador'] : NULL;
       $this->numeroregistro = (isset($arrprop['numeroregistro'])) ? $arrprop['numeroregistro'] : NULL;
       $this->lugaremision = (isset($arrprop['lugaremision'])) ? $arrprop['lugaremision'] : NULL;
@@ -135,6 +137,26 @@ class Carta {
      }
      return null;
    }
+   function setLugarEmision($lugar,$nuevo=false){//REQUIERE UN ARRAY ASOCIATIVO CON nombre, tipolugar, gid. Modifica el objeto pero no la BD. Si no es nuevo, $lugar es sólo un id
+     if (!$nuevo) {
+       $this->lugaremision = $lugar;
+     }
+     else {
+       $mbd = ConBD::conectaBD();
+       $sentencia = $mbd->prepare("select nextval('datos.ciudadesnuevas_id_seq'::regclass);");
+       $sentencia->execute();
+       $idlugar = $sentencia->fetch()['nextval'];
+       $lugar['idlugares']=$idlugar;
+       $insertlugar = OperaBD::inserta('datos.lugares',$lugar);
+       $mbd = null;
+       if (!$insertlugar) {
+         $this->lugaremision = $idlugar;
+       }
+       else {
+         return 'Error al insertar el lugar';
+       }
+     }
+   }
    function getLugarEmision(){
      if($this->lugaremision == NULL){
        return NULL;
@@ -153,6 +175,26 @@ class Carta {
        return $lugar;
      }
      return null;
+   }
+   function setLugarRecepcion($lugar,$nuevo = false){//REQUIERE UN ARRAY ASOCIATIVO CON nombre, tipolugar, gid. Modifica el objeto pero no la BD. Si no es nuevo, $lugar es sólo un id
+     if (!$nuevo) {
+       $this->lugarrecepcion = $lugar;
+     }
+     else {
+       $mbd = ConBD::conectaBD();
+       $sentencia = $mbd->prepare("select nextval('datos.ciudadesnuevas_id_seq'::regclass);");
+       $sentencia->execute();
+       $idlugar = $sentencia->fetch()['nextval'];
+       $lugar['idlugares']=$idlugar;
+       $insertlugar = OperaBD::inserta('datos.lugares',$lugar);
+       $mbd = null;
+       if (!$insertlugar) {
+         $this->lugarrecepcion = $idlugar;
+       }
+       else {
+         return 'Error al insertar el lugar';
+       }
+     }
    }
    function setViaje($idviajes){
      $arrcartasviajes = array('idviajes' => $idviajes,'idcartas'=>$this->idcartas);

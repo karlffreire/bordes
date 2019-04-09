@@ -16,8 +16,12 @@
       </div>
 
       <label class="control-label col-md-4">Identificador</label>
-      <div class="controls col-md-8 ">
+      <div class="controls col-md-5 ">
         <input id="identificador" class="form-control" name="identificador" value="" style="margin-bottom: 10px" type="text" />
+      </div>
+      <label class="control-label col-md-1">Pag</label>
+      <div class="controls col-md-2 ">
+        <input id="pagina" class="form-control" name="pagina" value="" style="margin-bottom: 10px" type="text" />
       </div>
       <label class="control-label col-md-4">Número registro</label>
       <div class="controls col-md-8 ">
@@ -74,35 +78,79 @@
   <div class="col-md-12">
     <div class="form-group">
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-11">
           <div class="row">
             <label id="eti-nac" class="control-label col-md-2">Lugar emisión</label>
-            <div id="divpais" class="controls col-md-5 lug-emi" style="margin-bottom: 10px">
-              <select id="paisemi" class="form-control selec-pais" name="paisemision" value="" onchange="javascript:habToponimo(this,'lugarnacimiento');">
-                <option value=""></option>
-              </select>
+            <div id="lugaremision-existente" class="controls col-md-10" style="margin-bottom: 10px">
+              <div class="controls col-md-5">
+                <select type="text" class="form-control selec-lugares" name="lugaremision-existente" id="lugaremision-existente" value="">
+                  <option value=""></option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('lugaremision-existente','lugaremision-nuevo');">Lugar nuevo</button>
             </div>
-            <div class="controls col-md-5 ">
-              <select id="lugaremision" class="form-control selec-topo lug-emi" name="lugaremision" value="" disabled="disabled">
-                <option></option>
-              </select>
+            <div id="lugaremision-nuevo" class="controls col-md-10 hidden">
+              <div class="controls col-md-3">
+                <input type="text" class="form-control lug-emi" name="lugaremision-nuevo" id="lugaremision-nuevo" value="">
+              </div>
+              <div id="divtipolugar" class="controls col-md-3 lug-emi" style="margin-bottom: 10px">
+                <select id="tipolugar" class="form-control" name="tipolugar-emi" value="" >
+                  <option value="" disabled selected>Tipo de lugar</option>
+                  <option value="Lugar geográfico">Lugar geográfico</option>
+                  <option value="Iglesia">Iglesia</option>
+                  <option value="Puerto">Puerto</option>
+                  <option value="Mina">Mina</option>
+                </select>
+              </div>
+              <div id="divpais" class="controls col-md-3 lug-emi" style="margin-bottom: 10px">
+                <select id="paisemi" class="form-control selec-pais" name="paisemision" value="" onchange="javascript:habToponimo(this,'geomemision');">
+                  <option value=""></option>
+                </select>
+              </div>
+              <div class="controls col-md-3 ">
+                <select id="geomemision" class="form-control selec-topo lug-emi" name="geomemision" value="" disabled="disabled">
+                  <option></option>
+                </select>
+              </div>
             </div>
           </div>
           <div class="row">
-            <label id="eti-def" class="control-label col-md-2">Lugar recepción</label>
-            <div id="divpais" class="controls col-md-5 lug-rec" style="margin-bottom: 10px">
-              <select id="paisrec" class="form-control selec-pais" name="paisrecepcion" value="" onchange="javascript:habToponimo(this,'lugardefuncion');">
-                <option value=""></option>
-              </select>
+            <label id="eti-nac" class="control-label col-md-2">Lugar recepción</label>
+            <div id="lugarrecepcion-existente" class="controls col-md-10" style="margin-bottom: 10px">
+              <div class="controls col-md-5">
+                <select type="text" class="form-control selec-lugares" name="lugarrecepcion-existente" id="lugarrecepcion-existente" value="">
+                  <option value=""></option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('lugarrecepcion-existente','lugarrecepcion-nuevo');">Lugar nuevo</button>
             </div>
-            <div class="controls col-md-5 ">
-              <select id="lugarrecepcion" class="form-control selec-topo lug-rec" name="lugarrecepcion" value="" disabled="disabled">
-                <option></option>
-              </select>
+            <div id="lugarrecepcion-nuevo" class="controls col-md-10 hidden">
+              <div class="controls col-md-3">
+                <input type="text" class="form-control lug-rec" name="lugarrecepcion-nuevo" id="lugarrecepcion-nuevo" value="">
+              </div>
+              <div id="divtipolugar" class="controls col-md-3 lug-rec" style="margin-bottom: 10px">
+                <select id="tipolugar" class="form-control" name="tipolugar-rec" value="" >
+                  <option value="" disabled selected>Tipo de lugar</option>
+                  <option value="Lugar geográfico">Lugar geográfico</option>
+                  <option value="Iglesia">Iglesia</option>
+                  <option value="Puerto">Puerto</option>
+                  <option value="Mina">Mina</option>
+                </select>
+              </div>
+              <div id="divpais" class="controls col-md-3 lug-rec" style="margin-bottom: 10px">
+                <select id="paisrec" class="form-control selec-pais" name="paisrecepcion" value="" onchange="javascript:habToponimo(this,'geomrecepcion');">
+                  <option value=""></option>
+                </select>
+              </div>
+              <div class="controls col-md-3 ">
+                <select id="geomrecepcion" class="form-control selec-topo lug-rec" name="geomrecepcion" value="" disabled="disabled">
+                  <option></option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <button id="boton-accion" type="submit" class="btn btn-success" style="padding:1.5em;border-radius:50%;"><i class="fa %fa% fa-2x"></i></button>
         </div>
       </div>

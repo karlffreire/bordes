@@ -187,10 +187,61 @@ function ponSelTramites(){
        {
          "id": "Poderes",
          "text": "Poderes"
+       },{
+         "id": "Pleitos",
+         "text": "Pleitos"
+       },{
+         "id": "Escrituras",
+         "text": "Escrituras"
+       },{
+         "id": "Herencias",
+         "text": "Herencias"
+       },{
+         "id": "Licencias",
+         "text": "Licencias"
+       },{
+         "id": "Cédulas",
+         "text": "Cédulas"
+       },{
+         "id": "Dote",
+         "text": "Dote"
+       },{
+         "id": "Matrimonio",
+         "text": "Matrimonio"
+       },{
+         "id": "Muerte",
+         "text": "Muerte"
        }
      ]
     ;
     $('.sel-tramites').select2({
     data:tramites
   });
+}
+
+
+function cargaLugares(callback){
+  $.ajax({
+    url: './datos/cargaLugares.php',
+    success: function(response){
+        if (response) {
+          callback(response);
+        }
+        else{
+          alert('Error cargando lugares');
+        }
+      }
+  });
+}
+
+function ponSelLugares(resultado){
+  for (var i = 0; i < resultado.length; i++) {
+    $(".selec-lugares").append(new Option(resultado[i].text, resultado[i].id));
+  }
+}
+
+
+function habLugarNuevo(existente,nuevo){
+  $('#'+existente).hide();
+  $('#'+nuevo).removeClass('hidden');
 }

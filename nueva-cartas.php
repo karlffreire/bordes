@@ -28,7 +28,7 @@ function __autoload($className) {
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
   </head>
-  <body onload="javascript:cargaPersonas(ponSelPersonas);ponSelTramites();cargaPaises(ponSelPais);">
+  <body onload="javascript:cargaPersonas(ponSelPersonas);ponSelTramites();cargaPaises(ponSelPais);cargaLugares(ponSelLugares);">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
