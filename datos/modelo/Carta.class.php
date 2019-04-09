@@ -53,6 +53,9 @@ class Carta {
            if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales') && is_array($valor)) {
              $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
            }
+           else if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales')&& !is_array($valor)){
+             $arrprop[strtolower($nombre)] = '{'.$valor.'}';
+           }
            else{
              $arrprop[strtolower($nombre)] = $valor;
            }

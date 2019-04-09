@@ -17,7 +17,7 @@ function __autoload($className) {
 <html lang="es" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Persona</title>
+    <title>Carta</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -36,7 +36,7 @@ function __autoload($className) {
     <div class="container" style="margin-top:6em;">
     <?php
       $fichapersona = file_get_contents('./plantillas/ficha-cartas.html');
-      $nuevapersona = str_replace(array('%carta%','%accion%','%fa%'),array('Nueva carta','./datos/introcarta.php','fa-envelope-open'),$fichapersona);
+      $nuevapersona = str_replace(array('%carta%','%accion%','%fa%'),array('Nueva carta', './datos/introcarta.php', 'fa-envelope-open'), $fichapersona);
       echo $nuevapersona;
     ?>
     </div>

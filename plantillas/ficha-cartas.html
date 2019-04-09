@@ -1,27 +1,28 @@
 <h2>%carta%</h2>
 <form id="form-carta" class="" action="%accion%" method="post" style="margin-top:3em;">
   <div class="col-md-6">
-    <div class="form-group required">
-      <label class="control-label col-md-4">Remitente</label>
+    <div id="divpersonas" class="form-group required">
+      <label class="control-label col-md-4">Remitente*</label>
       <div class="controls col-md-8 " style="margin-bottom: 10px">
-        <select id="idemisor" class="form-control selec-persona" name="idemisor">
+        <select id="idemisor" class="form-control selec-persona" name="idemisor" required>
           <option value=""></option>
         </select>
       </div>
-      <label class="control-label col-md-4">Destinatario</label>
+      <label class="control-label col-md-4">Destinatario*</label>
       <div class="controls col-md-8 " style="margin-bottom: 10px">
-        <select id="idreceptor" class="form-control selec-persona" name="idreceptor">
+        <select id="idreceptor" class="form-control selec-persona" name="idreceptor" required>
           <option value=""></option>
         </select>
       </div>
+    </div>
 
-      <label class="control-label col-md-4">Identificador</label>
+      <label class="control-label col-md-4">Identificador*</label>
       <div class="controls col-md-5 ">
-        <input id="identificador" class="form-control" name="identificador" value="" style="margin-bottom: 10px" type="text" />
+        <input id="identificador" class="form-control" name="identificador" value="" style="margin-bottom: 10px" type="text" required />
       </div>
-      <label class="control-label col-md-1">Pag</label>
+      <label class="control-label col-md-1">Pag*</label>
       <div class="controls col-md-2 ">
-        <input id="pagina" class="form-control" name="pagina" value="" style="margin-bottom: 10px" type="text" />
+        <input id="pagina" class="form-control" name="pagina" value="" style="margin-bottom: 10px" type="text" required />
       </div>
       <label class="control-label col-md-4">Número registro</label>
       <div class="controls col-md-8 ">
@@ -29,7 +30,7 @@
       </div>
       <label class="control-label col-md-4">Palabras clave</label>
       <div class="controls col-md-8 ">
-        <input id="palabrasclave" class="form-control" name="palabrasclave[]" multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
+        <input id="palabrasclave" class="form-control" name="palabrasclave" placeholder="Separar por ," multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
       </div>
       <div class="form-group">
         <label class="control-label col-md-4">Fecha</label>
@@ -45,17 +46,16 @@
           </select>
         </div>
       </div>
-    </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
-      <label class="control-label col-md-4">Asunto</label>
+      <label class="control-label col-md-4">Asunto*</label>
       <div class="controls col-md-8 ">
-        <input id="asunto" class="form-control" name="asunto" value="" style="margin-bottom: 10px" type="text" />
+        <input id="asunto" class="form-control" name="asunto" value="" style="margin-bottom: 10px" type="text" required />
       </div>
-      <label class="control-label col-md-4">Asunto clave</label>
+      <label class="control-label col-md-4">Asunto clave*</label>
       <div class="controls col-md-8 ">
-        <input id="asuntoclave" class="form-control" name="asuntoclave" value="" style="margin-bottom: 10px" type="text" />
+        <input id="asuntoclave" class="form-control" name="asuntoclave" value="" style="margin-bottom: 10px" type="text" required/>
       </div>
       <label class="control-label col-md-4">Trámites legales</label>
       <div class="controls col-md-8 " style="margin-bottom: 10px">
@@ -81,13 +81,13 @@
         <div class="col-md-11">
           <div class="row">
             <label id="eti-nac" class="control-label col-md-2">Lugar emisión</label>
-            <div id="lugaremision-existente" class="controls col-md-10" style="margin-bottom: 10px">
+            <div id="divlugaremision-existente" class="controls col-md-10" style="margin-bottom: 10px">
               <div class="controls col-md-5">
                 <select type="text" class="form-control selec-lugares" name="lugaremision-existente" id="lugaremision-existente" value="">
                   <option value=""></option>
                 </select>
               </div>
-              <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('lugaremision-existente','lugaremision-nuevo');">Lugar nuevo</button>
+              <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('divlugaremision-existente','lugaremision-nuevo');">Lugar nuevo</button>
             </div>
             <div id="lugaremision-nuevo" class="controls col-md-10 hidden">
               <div class="controls col-md-3">
@@ -116,13 +116,13 @@
           </div>
           <div class="row">
             <label id="eti-nac" class="control-label col-md-2">Lugar recepción</label>
-            <div id="lugarrecepcion-existente" class="controls col-md-10" style="margin-bottom: 10px">
+            <div id="divlugarrecepcion-existente" class="controls col-md-10" style="margin-bottom: 10px">
               <div class="controls col-md-5">
                 <select type="text" class="form-control selec-lugares" name="lugarrecepcion-existente" id="lugarrecepcion-existente" value="">
                   <option value=""></option>
                 </select>
               </div>
-              <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('lugarrecepcion-existente','lugarrecepcion-nuevo');">Lugar nuevo</button>
+              <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('divlugarrecepcion-existente','lugarrecepcion-nuevo');">Lugar nuevo</button>
             </div>
             <div id="lugarrecepcion-nuevo" class="controls col-md-10 hidden">
               <div class="controls col-md-3">

@@ -25,6 +25,7 @@ require './datos/modelo/operabd.class.php';
   // $carta1->asuntoclave = 'Prueba array 2';
   // $carta1->pagina = 9;
   // $carta1->palabrasclave = array('una','dos');
+  // $carta1->palabrasclave = 'una,dos';
 
 
 //var_dump($carta1);

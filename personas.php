@@ -33,12 +33,17 @@ function __autoload($className) {
   else if ($pagina == 'parientes') {
     $columnas = array('Persona','Parentesco','idparentesco');
     $datoscrudo = $persona->getParientes();
-    $i=0;
-    foreach ($datoscrudo as $key => $pariente) {
-      $datos[$i]['persona'] = $pariente->nombre.' '.$pariente->apellidos;
-      $datos[$i]['parentesco'] = ltrim(rtrim($pariente->parentesco, "}"),"{");
-      $datos[$i]['idparentesco'] = $pariente->idparentesco;
-      ++$i;
+    if ($datoscrudo) {
+      $i=0;
+      foreach ($datoscrudo as $key => $pariente) {
+        $datos[$i]['persona'] = $pariente->nombre.' '.$pariente->apellidos;
+        $datos[$i]['parentesco'] = ltrim(rtrim($pariente->parentesco, "}"),"{");
+          $datos[$i]['idparentesco'] = $pariente->idparentesco;
+          ++$i;
+        }
+    }
+    else {
+      $datos = null;
     }
   }
   else if ($pagina == 'propiedades') {
@@ -65,7 +70,7 @@ function __autoload($className) {
   <body onload="cargaListados(<?php echo "'".$pagina."'" ?>)">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-    //  echo $cabecera;
+      echo $cabecera;
     ?>
     <div class="container" style="margin-top:7em;">
       <div class="row">

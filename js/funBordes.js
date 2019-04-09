@@ -32,11 +32,16 @@ function cargaPaises(callback){
 }
 
 function ponSelPais(resultado){
-    $('.selec-pais').select2({
-    data:resultado
-  }).done(ponValPais());
+  ponSelecPais(resultado).done(ponValPais());
 }
 
+function ponSelecPais(datos){
+  var r = $.Deferred();
+  $('.selec-pais').select2({
+    data:datos
+  })
+  return r;
+}
 
 function habToponimo(origen,idsel){
 	var campo = document.getElementById(idsel);
@@ -235,9 +240,15 @@ function cargaLugares(callback){
 }
 
 function ponSelLugares(resultado){
-  for (var i = 0; i < resultado.length; i++) {
-    $(".selec-lugares").append(new Option(resultado[i].text, resultado[i].id));
+  ponSelecLugares(resultado).done(ponValLugares());
+}
+
+function ponSelecLugares(datos){
+  var r = $.Deferred();
+  for (var i = 0; i < datos.length; i++) {
+    $(".selec-lugares").append(new Option(datos[i].text, datos[i].id));
   }
+  return r;
 }
 
 
