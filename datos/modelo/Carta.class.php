@@ -82,9 +82,16 @@ class Carta {
       $cual = array('idcartas'=>$this->idcartas);
      OperaBD::modifica('datos.cartas',$arrprop,$cual);
    }
-   function borra(){
-      $cual = array('idcartas'=>$this->idcartas);
-     OperaBD::borra('datos.cartas',$cual);
+   function borra(){//COMPROBAR PRIMERO SI TIENE VIAJES
+     $viajes = OperaBD::selec('datos.cartasviajes',array('idviajes'),null,array('idcartas'=>$this->idcartas));
+     if ($viajes) {
+       return 'No se puede borrar porque tiene viajes asociados';
+     }
+     else {
+       $cual = array('idcartas'=>$this->idcartas);
+       $resultado =  OperaBD::borra('datos.cartas',$cual);
+       return $resultado;
+     }
    }
    function setObjeto($idobjeto){//$arrobjeto: array asociativo con el nombre del campo en la clave y el valor en el valor
      $arrobjeto['idpersonas'] = $this->idpersonas;
