@@ -53,7 +53,7 @@ class Carta {
            if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales') && is_array($valor)) {
              $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
            }
-           else if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales')&& !is_array($valor)){
+           else if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales')){
              $arrprop[strtolower($nombre)] = '{'.$valor.'}';
            }
            else{
@@ -68,7 +68,15 @@ class Carta {
      $arrprop;
      foreach ($this as $nombre => $valor) {
        if ($nombre != 'mercanciassolicitadas' && $nombre != 'objetos' && $nombre != 'idcartas') {
-          $arrprop[strtolower($nombre)] = $valor;
+         if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales') && is_array($valor)) {
+           $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
+         }
+         else if (($nombre == 'palabrasclave' || $nombre == 'tramiteslegales')){
+           $arrprop[strtolower($nombre)] = '{'.$valor.'}';
+         }
+         else {
+           $arrprop[strtolower($nombre)] = $valor;
+         }
        }
       }
       $cual = array('idcartas'=>$this->idcartas);

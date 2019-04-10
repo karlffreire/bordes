@@ -17,12 +17,12 @@ function paginaTablas() {
     });
 }
 
-function cargaPaises(callback){
+function cargaPaises(callback,ponvalores){
   $.ajax({
     url: './datos/cargaPaises.php',
     success: function(response){
         if (response) {
-          callback(response);
+          callback(response,ponvalores);
         }
         else{
           alert('Error cargando los paises');
@@ -31,8 +31,13 @@ function cargaPaises(callback){
   });
 }
 
-function ponSelPais(resultado){
-  ponSelecPais(resultado).done(ponValPais());
+function ponSelPais(resultado,ponvalores = false){
+  if (ponvalores) {
+    ponSelecPais(resultado).done(ponValPais());
+  }
+  else {
+    ponSelecPais(resultado);
+  }
 }
 
 function ponSelecPais(datos){
@@ -225,12 +230,12 @@ function ponSelTramites(){
 }
 
 
-function cargaLugares(callback){
+function cargaLugares(callback,ponvalores=false){
   $.ajax({
     url: './datos/cargaLugares.php',
     success: function(response){
         if (response) {
-          callback(response);
+          callback(response,ponvalores);
         }
         else{
           alert('Error cargando lugares');
@@ -239,8 +244,13 @@ function cargaLugares(callback){
   });
 }
 
-function ponSelLugares(resultado){
-  ponSelecLugares(resultado).done(ponValLugares());
+function ponSelLugares(resultado,ponvalores){
+  if (ponvalores) {
+    ponSelecLugares(resultado).done(ponValLugares());
+  }
+  else{
+    ponSelecLugares(resultado);
+  }
 }
 
 function ponSelecLugares(datos){
@@ -253,6 +263,7 @@ function ponSelecLugares(datos){
 
 
 function habLugarNuevo(existente,nuevo){
-  $('#'+existente).hide();
+  $('#'+existente).remove();
+  //$('#'+existente).hide();
   $('#'+nuevo).removeClass('hidden');
 }

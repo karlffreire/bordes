@@ -38,6 +38,9 @@ $arrprop  = array('*');
  $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
 //var_dump($prueba);
 
+$prueba->palabrasclave = 'Una,Dos';
+var_dump($prueba->modifica());
+
 //Y MODIFICACIÓN DE LA CARTA SELECCIONADA
  // $prueba->numeroregistro = 'prueba modificada otra vez';
  // $prueba->asuntoclave = 'estoy en ello';
@@ -67,10 +70,10 @@ $arrprop  = array('*');
 //RECUPERAR LUGARES DE EMISIÓN Y RECEPCIÓN:
 //$prueba->getLugarEmision();
 //$prueba->getLugarRecepcion();
-$lugar = array('nombre' => "Taberna de los Milagros", 'tipolugar' => 'Iglesia', 'gid' => '88795' );
+//$lugar = array('nombre' => "Taberna de los Milagros", 'tipolugar' => 'Iglesia', 'gid' => '88795' );
  // ["lugares_nombre"]=> string(22) "Misión de las pruebas" ["tipolugar"]=> string(7) "Iglesia" ["paisemision"]=> string(3) "202" ["lugaremision"]=> string(5) "88795" ["paisrecepcion"]=> string(2) "48" ["lugarrecepcion"]=> string(6) "101989"
-$prueba->setLugarEmision($lugar);
-$prueba->modifica();
+// $prueba->setLugarEmision($lugar);
+// $prueba->modifica();
 
 //ASIGNAR VIAJE SOBRE LA SELECCIÓN ANTERIOR
 //$prueba->setViaje(14);

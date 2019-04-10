@@ -51,6 +51,7 @@ function __autoload($className) {
     $datos = OperaBD::selec('datos.instituciones inner join datos.lugares on sede = lugares.idlugares',$columnasb,null,null,$orden);
   }
   unset($_SESSION['persona']);
+  unset($_SESSION['carta']);
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

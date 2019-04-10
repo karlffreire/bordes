@@ -64,7 +64,7 @@ function __autoload($className) {
       $('#pais').val(<?php echo '"'.$persona->nacionalidad.'"' ?>).trigger('change');
     }
   </script>
-  <body onload="javascript:cargaPaises(ponSelPais);ponPersona();">
+  <body onload="javascript:cargaPaises(ponSelPais,true);ponPersona();">
     <?php
     $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
     echo $cabecera;

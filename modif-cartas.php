@@ -33,7 +33,9 @@ function __autoload($className) {
     <script type="text/javascript">
       function ponCarta(){
         $('#boton-accion').removeClass('btn-success').addClass('btn-warning');
-        $('#divpersonas').hide();
+        $('#divpersonas').remove();
+        $('#form-carta').append($('<input>').attr('name','idemisor').val(<?php echo '"'.$carta->idemisor.'"' ?>).hide());
+        $('#form-carta').append($('<input>').attr('name','idreceptor').val(<?php echo '"'.$carta->idreceptor.'"' ?>).hide());
         $('#identificador').val(<?php echo '"'.$carta->identificador.'"' ?>);
         $('#pagina').val(<?php echo '"'.$carta->pagina.'"' ?>);
         $('#numeroregistro').val(<?php echo '"'.$carta->numeroregistro.'"' ?>);
@@ -45,9 +47,15 @@ function __autoload($className) {
         $('#urlimagen').val(<?php echo '"'.$carta->urlimagen.'"' ?>);
         $('#observacioneshonra').val(<?php echo '"'.$carta->observacioneshonra.'"' ?>);
         $('#notas').val(<?php echo '"'.$carta->notas.'"' ?>);
-        var tramiteslegales = <?php echo json_encode($carta->tramiteslegales); ?>;
-        var arrtram = tramiteslegales.replace(/{|}|"/g,'').split(',');
-        $('#tramiteslegales').val(arrtram).trigger('change');
+        var tramiteslegales = <?php if (isset($carta->tramiteslegales)) {
+          echo json_encode($carta->tramiteslegales);
+        } else {
+          echo '""';
+        } ?>;
+        if (tramiteslegales != '') {
+          var arrtram = tramiteslegales.replace(/{|}|"/g,'').split(',');
+          $('#tramiteslegales').val(arrtram).trigger('change');
+        }
       }
       function ponValLugares(){
         $('select#lugaremision-existente').val(<?php echo '"'.$carta->lugaremision.'"' ?>);
@@ -55,7 +63,7 @@ function __autoload($className) {
       }
     </script>
   </head>
-  <body onload="javascript:ponSelTramites();cargaPaises(ponSelPais);cargaLugares(ponSelLugares);ponCarta();">
+  <body onload="javascript:ponSelTramites();cargaPaises(ponSelPais);cargaLugares(ponSelLugares,true);ponCarta();">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
