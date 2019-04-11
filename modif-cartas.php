@@ -73,6 +73,9 @@ function __autoload($className) {
       $fichacarta = file_get_contents('./plantillas/ficha-cartas.html');
       $nuevacarta = str_replace(array('%carta%','%accion%','%fa%'),array('Carta de '.$carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos, './datos/modificacarta.php', 'fa-edit'), $fichacarta);
       echo $nuevacarta;
+
+      $accionescarta = file_get_contents('./plantillas/acciones-cartas.html');
+      echo $accionescarta;
     ?>
     </div>
     <?php

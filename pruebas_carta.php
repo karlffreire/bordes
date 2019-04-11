@@ -38,9 +38,6 @@ $arrprop  = array('*');
  $prueba = OperaBD::selec('datos.cartas',$arrprop,'Carta',$where)[0];
 //var_dump($prueba);
 
-$prueba->palabrasclave = 'Una,Dos';
-var_dump($prueba->modifica());
-
 //Y MODIFICACIÓN DE LA CARTA SELECCIONADA
  // $prueba->numeroregistro = 'prueba modificada otra vez';
  // $prueba->asuntoclave = 'estoy en ello';

@@ -1,0 +1,53 @@
+<form id="form-mercanciassolicitadas" class="" action="./datos/intromercanciassolicitadas.php" method="post" style="margin-top:3em;">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row">
+        <div class="form-group required">
+          <label class="control-label col-md-1">Mercancía</label>
+          <div class="controls col-md-4 ">
+            <input id="mercancia" class="form-control" name="mercancia" value="" style="margin-bottom: 10px" type="text" required/>
+          </div>
+          <label class="control-label col-md-2">Tipo de mercancía</label>
+          <div class="controls col-md-5">
+            <select id="tipomercancias" type="text" class="form-control" name="tipomercancias" style="margin-bottom: 10px">
+              <option value=""></option>
+              <option value="Especias">Especias</option>
+              <option value="Alimentos">Alimentos</option>
+              <option value="Bebidas">Bebidas</option>
+              <option value="Vestidos">Vestidos</option>
+              <option value="Mobiliario">Mobiliario</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label class="control-label col-md-2">Unidades</label>
+          <div class="controls col-md-1">
+            <input id="unidades" type="number" class="form-control" name="unidades" value="" style="margin-bottom: 10px" />
+          </div>
+          <label class="control-label col-md-2 col-md-offset-2">Tipo de medida</label>
+          <div class="controls col-md-5">
+            <select id="tipodemedida" type="text" class="form-control" name="tipodemedida" style="margin-bottom: 10px">
+              <option value=""></option>
+              <option value="Adame">Adame</option>
+              <option value="Arroba">Arroba</option>
+              <option value="Barril">Barril</option>
+              <option value="Cofre">Cofre</option>
+              <option value="Fanega">Fanega</option>
+              <option value="Frasco">Frasco</option>
+              <option value="Jarra">Jarra</option>
+              <option value="Mochila">Mochila</option>
+              <option value="Llitro">Llitro</option>
+              <option value="Quintal">Quintal</option>
+              <option value="Reales">Reales</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button id="boton-accion" type="submit" class="btn btn-success" style="padding:0.5em;width:100%;">Añadir</button>
+    </div>
+  </div>
+</form>

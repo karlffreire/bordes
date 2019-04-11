@@ -98,9 +98,35 @@ function cargaListados(pagina){
     cargaPersonas(ponSelPersonas);
     cargaParentescos(ponSelParentescos);
   }
-  if (pagina == 'propiedades') {
+  else if (pagina == 'propiedades' || pagina == 'objetos') {
     cargaObjetos(ponSelObjetos);
   }
+  else if (pagina == 'menciones') {
+    cargaPersonas(ponSelPersonas);
+  }
+  else if (pagina == 'acontecimientosdescritos') {
+    cargaAcontecimientos(ponSelAcontecimientos);
+  }
+}
+
+function cargaAcontecimientos(callback){
+  $.ajax({
+    url: './datos/cargaAcontecimientos.php',
+    success: function(response){
+        if (response) {
+          callback(response);
+        }
+        else{
+          alert('Error cargando acontecimientos');
+        }
+      }
+  });
+}
+
+function ponSelAcontecimientos(resultado){
+    $('.selec-acont').select2({
+    data:resultado
+  });
 }
 
 function cargaInstituciones(callback){

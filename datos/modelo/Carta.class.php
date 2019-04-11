@@ -94,8 +94,8 @@ class Carta {
      }
    }
    function setObjeto($idobjeto){//$arrobjeto: array asociativo con el nombre del campo en la clave y el valor en el valor
-     $arrobjeto['idpersonas'] = $this->idpersonas;
-     OperaBD::inserta('datos.objetoscartas',$arrobjeto);
+     $idobjeto['idcartas'] = $this->idcartas;
+     OperaBD::inserta('datos.objetoscartas',$idobjeto);
    }
    function getObjetos(){
      $objetos;
@@ -103,7 +103,7 @@ class Carta {
      $arrprop =  array('idobjetos');
      $idsobjetos = OperaBD::selec('datos.objetoscartas',$arrprop,null,$id);
      foreach ($idsobjetos as $key => $value) {
-       $objetos[] = OperaBD::selec('datos.objetos',array('nombre'),null,$value)[0];
+       $objetos[] = OperaBD::selec('datos.objetos',array('nombre','idobjetos'),null,$value)[0];
      }
      if (isset($objetos)) {
        return $objetos;
@@ -116,7 +116,7 @@ class Carta {
    }
    function getMercanciasSolicitadas(){
      $arrid = array('idcartas' => $this->idcartas);
-     $mercancias = OperaBD::selec('datos.mercanciasybienes',array('*'),null,$arrid);
+     $mercancias = OperaBD::selec('datos.mercanciasybienes',array('mercancia','tipodemedida','unidades','tipomercancias','idmercanciasybienes'),null,$arrid);
      if ($mercancias) {
        return $mercancias;
      }
@@ -138,15 +138,13 @@ class Carta {
      }
      return null;
    }
-   function setMenciones($arridpersonas){
-     foreach ($arridpersonas as $key => $idpersona) {
-       $arrmenciona = array('idpersonas'=>$idpersona,'idcartas'=>$this->idcartas,'rolpersona'=>'Otro');
-       OperaBD::inserta('datos.cartaspersonas',$arrmenciona);
-     }
+   function setMencion($idpersonas){
+     $arrmenciona = array('idpersonas'=>$idpersonas,'idcartas'=>$this->idcartas);
+     OperaBD::inserta('datos.mencion',$arrmenciona);
    }
    function getMenciones(){
      $mencionados;
-     $idmenciones = OperaBD::selec('datos.cartaspersonas',array('idpersonas'),null,array('idcartas'=>$this->idcartas, 'rolpersona'=>'Otro'));
+     $idmenciones = OperaBD::selec('datos.mencion',array('idpersonas'),null,array('idcartas'=>$this->idcartas));
      foreach ($idmenciones as $key => $value) {
        $mencionados[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value)[0];
      }
