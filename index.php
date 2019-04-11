@@ -67,14 +67,6 @@ $edit = $_SESSION["editor"];
       <p><a class="btn btn-primary" href="./principal.php?p=cartas&f=" role="button">Ver listado</a></p>
       <p><a class="btn btn-success" href="./nueva-cartas.php" role="button">Añadir carta</a></p>
     </div>
-    <!-- <div class="col-lg-4">
-      <div class="icon-menu-init">
-        <i class="fa fa-map-signs fa-4x" style="margin-top:40px;"></i>
-      </div>
-      <h2>Viajes</h2>
-      <p>Visualizar y gestionar la información de los viajes incluidos en la base de datos.</p>
-      <p><a class="btn btn-default" href="./principal.php?p=viajes" role="button">Viajes</a></p>
-    </div> -->
   </div>
   <div class="row">
     <hr style="border:solid 1px;">

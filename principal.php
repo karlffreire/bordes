@@ -18,37 +18,37 @@ function __autoload($className) {
   $edit = $_SESSION["editor"];
   $columnas;
   if ($pagina == 'cartas') {
+    $paginamostrar = $pagina;
     $columnas = array('fecha','identificador','asunto','remitente','destinatario','idcartas');
     $columnasb = array('fecha','identificador','asunto',"emisor.nombre||' '||emisor.apellidos as emisor","receptor.nombre||' '||receptor.apellidos as receptor",'idcartas');
     $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
     $orden = array('fecha','identificador');
     $datos = OperaBD::selec('datos.cartas inner join datos.personas emisor on cartas.idemisor = emisor.idpersonas left join datos.personas receptor on cartas.idreceptor = receptor.idpersonas',$columnasb,null,null,$orden);
   }
-  else if ($pagina == 'viajes') {//MEJOR QUE SÓLO SE PUEDAN VER LOS VIAJES A PARTIR DE LAS CARTAS O PERSONAS
-    $columnas = array('Origen','Fecha','idviajes');
-    $columnasb = array('geometrias.toponimo','fechainicio','viajes.idviajes');
-    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
-    $orden = array('fechainicio');
-    $datos = OperaBD::selec('datos.viajes inner join datos.recorrido on viajes.idviajes = recorrido.idviajes inner join datos.geometrias on recorrido.gid = geometrias.gid',$columnasb,null,null,$orden);
-  }
   else if ($pagina == 'personas') {
+    $paginamostrar = $pagina;
     $columnas = array('nombre','apellidos','genero','tipopersona','fechanacimiento','idpersonas');
     $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
     $orden = array('nombre','apellidos','fechanacimiento');
     $datos = OperaBD::selec('datos.personas',$columnas,null,null,$orden);
   }
   else if ($pagina == 'acontecimientos') {
+    $paginamostrar = $pagina;
     $columnas = array('nombre','fecha','idacontecimiento');
-    $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
+    $filtros = urldecode(unserialize(filter_var($_GET['f'])));
     $orden = array('nombre','fecha');
     $datos = OperaBD::selec('datos.acontecimiento',$columnas,null,null,$orden);
   }
   else if ($pagina == 'instituciones') {
+    $paginamostrar = $pagina;
     $columnas = array('nombre','administracion','sede','idinstituciones');
     $columnasb = array('instituciones.nombre','administracion','lugares.nombre as sede','idinstituciones');
     $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
     $orden = array('nombre');
     $datos = OperaBD::selec('datos.instituciones inner join datos.lugares on sede = lugares.idlugares',$columnasb,null,null,$orden);
+  }
+  else {
+    header('location:./index.php');
   }
   unset($_SESSION['persona']);
   unset($_SESSION['carta']);
@@ -77,7 +77,7 @@ function __autoload($className) {
       <div class="row">
         <caption>
           <h2>
-            <?php echo ucfirst($pagina); ?>
+            <?php echo ucfirst($paginamostrar); ?>
           </h2>
         </caption>
         <table class="table table-bordered table-list table-hover tabla-ppal">
@@ -98,6 +98,8 @@ function __autoload($className) {
             </tr>
           </thead>
           <tbody>
+            <?php if ($datos): ?>
+
             <?php foreach ($datos as $key => $fila): ?>
               <tr>
                 <?php $i=0; foreach ($fila as $key => $celda): ?>
@@ -117,6 +119,7 @@ function __autoload($className) {
                 <?php endforeach; ?>
               </tr>
             <?php endforeach; ?>
+          <?php endif; ?>
           </tbody>
         </table>
       </div>

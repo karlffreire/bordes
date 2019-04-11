@@ -293,3 +293,65 @@ function habLugarNuevo(existente,nuevo){
   //$('#'+existente).hide();
   $('#'+nuevo).removeClass('hidden');
 }
+
+function ponSelHonraDecoro(){
+    honra =
+      [
+       {
+         "id": "Mujer",
+         "text": "Mujer"
+       },
+       {
+         "id": "Hombre",
+         "text": "Hombre"
+       },
+       {
+         "id": "Vestimenta",
+         "text": "Vestimenta"
+       },{
+         "id": "Nobleza",
+         "text": "Nobleza"
+       },{
+         "id": "Escritura",
+         "text": "Escritura"
+       },{
+         "id": "Negocios",
+         "text": "Negocios"
+       }
+     ]
+    ;
+    $('.sel-honra').select2({
+    data:honra
+  });
+}
+
+function ponSelConsejosViaje(){
+    consejos =
+      [
+       {
+         "id": "Robo",
+         "text": "Robo"
+       },
+       {
+         "id": "Violencia",
+         "text": "Violencia"
+       },
+       {
+         "id": "Vestimenta",
+         "text": "Vestimenta"
+       },{
+         "id": "Mujer",
+         "text": "Mujer"
+       },{
+         "id": "Acompañamiento",
+         "text": "Acompañamiento"
+       },{
+         "id": "Peligro naufragio",
+         "text": "Peligro naufragio"
+       }
+     ]
+    ;
+    $('.sel-consejos').select2({
+    data:consejos
+  });
+}

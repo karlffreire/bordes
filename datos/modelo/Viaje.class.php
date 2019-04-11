@@ -48,6 +48,9 @@ class Viaje {
           if (($nombre == 'embarcaciones' || $nombre == 'honraydecoro' || $nombre == 'consejosviaje') && is_array($valor)) {
             $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
           }
+          else if (($nombre == 'embarcaciones' || $nombre == 'honraydecoro' || $nombre == 'consejosviaje')) {
+            $arrprop[strtolower($nombre)] = '{'.$valor.'}';
+          }
           else{
             $arrprop[strtolower($nombre)] = $valor;
           }

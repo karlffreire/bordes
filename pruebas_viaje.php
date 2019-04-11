@@ -25,7 +25,7 @@ require './datos/modelo/operabd.class.php';
 $arrprop  = array('*');
  $where = array('idviajes' => 14);
  $prueba = OperaBD::selec('datos.viajes',$arrprop,'Viaje',$where)[0];
-//var_dump($prueba);
+var_dump($prueba->getRecorrido());
 
 //Y MODIFICACIÓN DEL VIAJE SELECCIONADO
  // $prueba->motivoviaje = 'Gobernar';
