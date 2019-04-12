@@ -19,11 +19,11 @@ foreach ($_POST as $key => $value) {
 foreach ($_POST['viajeros'] as $key => $idviajero) {
   $idsviajeros[] =  $idviajero;
 }
-$carta=$_SESSION['carta'];
-$viaje = new Viaje(true,$_POST);
-$viaje->almacena();
-$carta->setViaje($viaje->idviajes);
+$viaje = new Viaje(false,array_filter($_POST));
+$viaje->idviajes = filter_var($_SESSION['viaje']->idviajes,FILTER_SANITIZE_STRING);
+$viaje->modifica();
+OperaBD::borra('datos.viajeros',array('idviajes' => $viaje->idviajes ));
 $viaje->setViajeros($idsviajeros);
 
-header('location:../modif-viajes.php?id='.$viaje->idviajes);
+header('location:../viajes.php?');
  ?>

@@ -62,15 +62,23 @@ class Viaje {
   function modifica(){
     $arrprop;
     foreach ($this as $nombre => $valor) {
-      if ($nombre != 'mercanciastransportadas' && $nombre != 'recorrido' && $nombre != 'idviajes') {
-         $arrprop[strtolower($nombre)] = $valor;
+      if ($nombre != 'mercanciastransportadas' && $nombre != 'recorrido'&& $nombre != 'viajeros'  && $nombre != 'idviajes') {
+        if (($nombre == 'embarcaciones' || $nombre == 'honraydecoro' || $nombre == 'consejosviaje') && is_array($valor)) {
+          $arrprop[strtolower($nombre)] = '{'.implode(",",$valor).'}';
+        }
+        else if (($nombre == 'embarcaciones' || $nombre == 'honraydecoro' || $nombre == 'consejosviaje')) {
+          $arrprop[strtolower($nombre)] = '{'.$valor.'}';
+        }
+        else{
+          $arrprop[strtolower($nombre)] = $valor;
+        }
       }
      }
      $cual = array('idviajes'=>$this->idviajes);
     OperaBD::modifica('datos.viajes',$arrprop,$cual);
   }
   function borra(){
-     $cual = array('idviajes'=>$this->idviajes);
+    $cual = array('idviajes'=>$this->idviajes);
     OperaBD::borra('datos.viajes',$cual);
   }
   function setMercanciaTransportada($arrmercancia){
@@ -105,12 +113,14 @@ class Viaje {
     }
   }
   function getRecorrido(){
-    $recorrido;
     $idrecorridos = OperaBD::selec('datos.recorrido',array('gid'),null,array('idviajes'=>$this->idviajes));
-    foreach ($idrecorridos as $key => $value) {
-      $recorrido[] = OperaBD::selec('datos.geometrias',array('gid,toponimo, st_asgeojson(geometrias.geom) as geojson'),null,$value)[0];
+    if (count($idrecorridos) > 0) {
+      foreach ($idrecorridos as $key => $value) {
+        $recorrido[] = OperaBD::selec('datos.geometrias',array('gid,toponimo, st_asgeojson(geometrias.geom) as geojson'),null,$value)[0];
+      }
+      return $recorrido;
     }
-    return $recorrido;
+    return null;
   }
 }
 ?>

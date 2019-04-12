@@ -28,10 +28,10 @@ function __autoload($className) {
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
   </head>
-  <body onload="ponSelHonraDecoro();ponSelConsejosViaje();">
+  <body onload="cargaPersonas(ponSelPersonas);ponSelHonraDecoro();ponSelConsejosViaje();">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-  //    echo $cabecera;
+      echo $cabecera;
     ?>
     <div class="container" style="margin-top:6em;">
     <?php

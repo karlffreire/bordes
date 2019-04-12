@@ -149,12 +149,50 @@ function ponSelInstitucion(resultado){
   });
 }
 
-function cargaPersonas(callback){
+
+function cargaLugares(callback,ponvalores=false){
+  $.ajax({
+    url: './datos/cargaLugares.php',
+    success: function(response){
+        if (response) {
+          callback(response,ponvalores);
+        }
+        else{
+          alert('Error cargando lugares');
+        }
+      }
+  });
+}
+
+function ponSelLugares(resultado,ponvalores){
+  if (ponvalores) {
+    ponSelecLugares(resultado).done(ponValLugares());
+  }
+  else{
+    ponSelecLugares(resultado);
+  }
+}
+
+function ponSelecLugares(datos){
+  var r = $.Deferred();
+  for (var i = 0; i < datos.length; i++) {
+    $(".selec-lugares").append(new Option(datos[i].text, datos[i].id));
+  }
+  return r;
+}
+
+function habLugarNuevo(existente,nuevo){
+  $('#'+existente).remove();
+  //$('#'+existente).hide();
+  $('#'+nuevo).removeClass('hidden');
+}
+
+function cargaPersonas(callback,ponvalores=false){
   $.ajax({
     url: './datos/cargaPersonas.php',
     success: function(response){
         if (response) {
-          callback(response);
+          callback(response,ponvalores);
         }
         else{
           alert('Error cargando personas');
@@ -163,10 +201,22 @@ function cargaPersonas(callback){
   });
 }
 
-function ponSelPersonas(resultado){
+function ponSelPersonas(resultado,ponvalores){
+  if (ponvalores) {
+    ponSelecPersonas(resultado).done(ponValPersonas());
+  }
+  else{
+    ponSelecPersonas(resultado);
+  }
+}
+
+
+function ponSelecPersonas(resultado){
+    var r = $.Deferred();
     $('.selec-persona').select2({
     data:resultado
   });
+  return r;
 }
 
 function cargaParentescos(callback){
@@ -253,45 +303,6 @@ function ponSelTramites(){
     $('.sel-tramites').select2({
     data:tramites
   });
-}
-
-
-function cargaLugares(callback,ponvalores=false){
-  $.ajax({
-    url: './datos/cargaLugares.php',
-    success: function(response){
-        if (response) {
-          callback(response,ponvalores);
-        }
-        else{
-          alert('Error cargando lugares');
-        }
-      }
-  });
-}
-
-function ponSelLugares(resultado,ponvalores){
-  if (ponvalores) {
-    ponSelecLugares(resultado).done(ponValLugares());
-  }
-  else{
-    ponSelecLugares(resultado);
-  }
-}
-
-function ponSelecLugares(datos){
-  var r = $.Deferred();
-  for (var i = 0; i < datos.length; i++) {
-    $(".selec-lugares").append(new Option(datos[i].text, datos[i].id));
-  }
-  return r;
-}
-
-
-function habLugarNuevo(existente,nuevo){
-  $('#'+existente).remove();
-  //$('#'+existente).hide();
-  $('#'+nuevo).removeClass('hidden');
 }
 
 function ponSelHonraDecoro(){

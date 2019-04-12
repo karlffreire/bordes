@@ -74,8 +74,8 @@ function __autoload($className) {
       $nuevacarta = str_replace(array('%carta%','%accion%','%fa%'),array('Carta de '.$carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos, './datos/modificacarta.php', 'fa-edit'), $fichacarta);
       echo $nuevacarta;
 
-      $fichaaccionescarta = file_get_contents('./plantillas/acciones-cartas.html');
-      $accionescarta = str_replace('%arrcarta%',urlencode(serialize(array("idcartas"=>$carta->idcartas))),$fichaaccionescarta);
+      $accionescarta = file_get_contents('./plantillas/acciones-cartas.html');
+      //$accionescarta = str_replace('%arrcarta%',urlencode(serialize(array("idcartas"=>$carta->idcartas))),$fichaaccionescarta);
       echo $accionescarta;
     ?>
     </div>

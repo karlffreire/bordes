@@ -1,69 +1,81 @@
 <h2>%viaje%</h2>
 <form id="form-viaje" class="" action="%accion%" method="post" style="margin-top:3em;">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label class="control-label col-md-4">Fecha inicio*</label>
-      <div class="controls col-md-4">
-        <input id="fechainicio" type="date" class="form-control" name="fechainicio" value="" style="margin-bottom: 10px" required/>
-      </div>
-      <div class="controls col-md-4">
-        <select id="confianzafechainicio" type="text" class="form-control" name="confianzafechainicio" style="margin-bottom: 10px">
-          <option value="" selected disabled>Confianza</option>
-          <option value="1">Año</option>
-          <option value="2">Año y mes</option>
-          <option value="3">Año, mes y día</option>
-        </select>
-      </div>
-      <label class="control-label col-md-4">Fecha fin*</label>
-      <div class="controls col-md-4">
-        <input id="fechafin" type="date" class="form-control" name="fechafin" value="" style="margin-bottom: 10px" required/>
-      </div>
-      <div class="controls col-md-4">
-        <select id="confianzafechafin" type="text" class="form-control" name="confianzafechafin" style="margin-bottom: 10px">
-          <option value="" selected disabled>Confianza</option>
-          <option value="1">Año</option>
-          <option value="2">Año y mes</option>
-          <option value="3">Año, mes y día</option>
+  <div class="row">
+    <div class="col-md-12">
+      <label class="control-label col-md-2">Viajeros*</label>
+      <div class="controls col-md-10 " style="margin-bottom: 10px">
+        <select id="viajeros" class="form-control selec-persona" name="viajeros[]" multiple="multiple" required>
+          <option value=""></option>
         </select>
       </div>
     </div>
-      <label class="control-label col-md-4">Motivo del viaje</label>
-      <div class="controls col-md-8 ">
-        <input id="motivoviaje" class="form-control" name="motivoviaje" value="" style="margin-bottom: 10px" type="text" />
-      </div>
-      <label class="control-label col-md-4">Embarcaciones</label>
-      <div class="controls col-md-8 ">
-        <input id="embarcaciones" class="form-control" name="embarcaciones" placeholder="Separar por ," multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
-      </div>
-      <label class="control-label col-md-4">Honra y decoro</label>
-      <div class="controls col-md-8" style="margin-bottom: 10px">
-        <select id="honraydecoro" type="text" class="form-control sel-honra" name="honraydecoro[]" multiple="multiple" style="margin-bottom: 10px">
-          <option value=""></option>
-        </select>
-      </div>
-      <label class="control-label col-md-4">Consejos viaje</label>
-      <div class="controls col-md-8" style="margin-bottom: 10px">
-        <select id="consejosviaje" type="text" class="form-control sel-consejos" name="consejosviaje[]" multiple="multiple" style="margin-bottom: 10px">
-          <option value=""></option>
-        </select>
-      </div>
   </div>
-  <div class="col-md-6">
-    <div class="row">
-      <div class="form-check form-check-inline col-md-offset-1">
-        <input class="form-check-input" type="checkbox" id="realizado" name="realizado" value="true">
-        <label class="form-check-label" for="realizado">Realizado</label>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-4">Fecha inicio*</label>
+        <div class="controls col-md-4">
+          <input id="fechainicio" type="date" class="form-control" name="fechainicio" value="" style="margin-bottom: 10px" required/>
+        </div>
+        <div class="controls col-md-4">
+          <select id="confianzafechainicio" type="text" class="form-control" name="confianzafechainicio" style="margin-bottom: 10px">
+            <option value="" selected disabled>Confianza</option>
+            <option value="1">Año</option>
+            <option value="2">Año y mes</option>
+            <option value="3">Año, mes y día</option>
+          </select>
+        </div>
+        <label class="control-label col-md-4">Fecha fin*</label>
+        <div class="controls col-md-4">
+          <input id="fechafin" type="date" class="form-control" name="fechafin" value="" style="margin-bottom: 10px" required/>
+        </div>
+        <div class="controls col-md-4">
+          <select id="confianzafechafin" type="text" class="form-control" name="confianzafechafin" style="margin-bottom: 10px">
+            <option value="" selected disabled>Confianza</option>
+            <option value="1">Año</option>
+            <option value="2">Año y mes</option>
+            <option value="3">Año, mes y día</option>
+          </select>
+        </div>
       </div>
-      <div class="form-check form-check-inline col-md-offset-1" style="margin-bottom: 10px">
-        <input class="form-check-input" type="checkbox" id="decoro" name="decoro" value="true">
-        <label class="form-check-label" for="decoro">Decoro</label>
+        <label class="control-label col-md-4">Motivo del viaje</label>
+        <div class="controls col-md-8 ">
+          <input id="motivoviaje" class="form-control" name="motivoviaje" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+        <label class="control-label col-md-4">Embarcaciones</label>
+        <div class="controls col-md-8 ">
+          <input id="embarcaciones" class="form-control" name="embarcaciones" placeholder="Separar por ," multiple="multiple" value="" style="margin-bottom: 10px" type="text" />
+        </div>
+        <label class="control-label col-md-4">Honra y decoro</label>
+        <div class="controls col-md-8" style="margin-bottom: 10px">
+          <select id="honraydecoro" type="text" class="form-control sel-honra" name="honraydecoro[]" multiple="multiple" style="margin-bottom: 10px">
+            <option value=""></option>
+          </select>
+        </div>
+        <label class="control-label col-md-4">Consejos viaje</label>
+        <div class="controls col-md-8" style="margin-bottom: 10px">
+          <select id="consejosviaje" type="text" class="form-control sel-consejos" name="consejosviaje[]" multiple="multiple" style="margin-bottom: 10px">
+            <option value=""></option>
+          </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="form-check form-check-inline col-md-offset-1">
+          <input class="form-check-input" type="checkbox" id="realizado" name="realizado" value="true">
+          <label class="form-check-label" for="realizado">Realizado</label>
+        </div>
+        <div class="form-check form-check-inline col-md-offset-1" style="margin-bottom: 10px">
+          <input class="form-check-input" type="checkbox" id="decoro" name="decoro" value="true">
+          <label class="form-check-label" for="decoro">Decoro</label>
+        </div>
       </div>
-    </div>
-    <div class="controls col-md-12">
-      <textarea  id="observacionesdecoro" class="form-control" placeholder="Observaciones decoro" name="observacionesdecoro" rows="2" cols="60" style="margin-bottom: 10px"></textarea>
-    </div>
-    <div class="controls col-md-12">
-      <textarea  id="observaciones" class="form-control" placeholder="Observaciones" name="observaciones" rows="2" cols="60" style="margin-bottom: 10px"></textarea>
+      <div class="controls col-md-12">
+        <textarea  id="observacionesdecoro" class="form-control" placeholder="Observaciones decoro" name="observacionesdecoro" rows="2" cols="60" style="margin-bottom: 10px"></textarea>
+      </div>
+      <div class="controls col-md-12">
+        <textarea  id="observaciones" class="form-control" placeholder="Observaciones" name="observaciones" rows="2" cols="60" style="margin-bottom: 10px"></textarea>
+      </div>
     </div>
   </div>
   <div class="col-md-12">

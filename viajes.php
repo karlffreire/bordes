@@ -14,32 +14,39 @@ function __autoload($className) {
   $menda = filter_var($credenciales[0], FILTER_SANITIZE_STRING);
 
 //SÓLO SE PUEDEN VER LOS VIAJES A PARTIR DE LAS CARTAS O PERSONAS
-    $columnas = array('Origen','Destino','Fecha','idviajes');
-    if (isset($_SESSION['carta'])) {
-      $pretitulo ='Viajes referidos en la carta:';
-      $carta = $_SESSION['carta'];
-      $datoscrudo = $carta->getViajes();
-      if ($datoscrudo) {
-        $i=0;
-        foreach ($datoscrudo as $key => $viaje) {
-          $recorrido = $viaje->getRecorrido();
-          $datos[$i]['origen'] = $recorrido[0]['toponimo'];
-          $datos[$i]['destino'] = $recorrido[count($recorrido)-1]['toponimo'];
-          $datos[$i]['fecha'] = $viaje->fechainicio;
-          $datos[$i]['idviajes'] = $viaje->idviajes;
-          ++$i;
-        }
+if (isset($_SESSION['carta'])) {
+  $columnas = array('Origen','Destino','Fecha','idviajes');
+  $pretitulo ='Viajes referidos en la carta:';
+  $carta = $_SESSION['carta'];
+  $datoscrudo = $carta->getViajes();
+  if ($datoscrudo) {
+    $i=0;
+    foreach ($datoscrudo as $key => $viaje) {
+      $recorrido;
+      $recorrido = $viaje->getRecorrido();
+      if (isset($recorrido)) {
+        $datos[$i]['origen'] = $recorrido[0]['toponimo'];
+        $datos[$i]['destino'] = $recorrido[count($recorrido)-1]['toponimo'];
       }
-      else {
-        $datos = null;
+      else{
+        $datos[$i]['origen'] = 'Por rellenar';
+        $datos[$i]['destino'] = 'Por rellenar';
       }
+      $datos[$i]['fecha'] = $viaje->fechainicio;
+      $datos[$i]['idviajes'] = $viaje->idviajes;
+      ++$i;
     }
-    else if (isset($_SESSION['persona'])) {
-      // HAY QUE ASEGURARSE DE NUNCA UNA SESIÓN TIENE CARTA Y PERSONA
-    }
-    else{
-      header('location:./index.php')
-    }
+  }
+  else {
+    $datos = null;
+  }
+}
+else if (isset($_SESSION['persona'])) {
+  // HAY QUE ASEGURARSE DE NUNCA UNA SESIÓN TIENE CARTA Y PERSONA
+}
+else{
+  header('location:./index.php');
+}
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -59,7 +66,7 @@ function __autoload($className) {
   <body onload="">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-      echo $cabecera;
+  //    echo $cabecera;
     ?>
     <div class="container" style="margin-top:7em;">
       <div class="row">
@@ -94,7 +101,7 @@ function __autoload($className) {
                     <?php
                     ++$i;
                     if ($i === count($fila)) {
-                      echo "<a href=javascript:alertaBorrado('./datos/borra-viajes.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                      echo "<a href='./modif-viajes.php?id=$celda'; class='btn btn-default bot-pers'><em class='fa fa-pencil'></em><a><a href=javascript:alertaBorrado('./datos/borra-viajes.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
                     }
                     else{
                       echo $celda;
