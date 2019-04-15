@@ -366,3 +366,11 @@ function ponSelConsejosViaje(){
     data:consejos
   });
 }
+
+function ponSortable(iddiv){
+  $('#'+iddiv).sortable();
+}
+
+function habBoton(iddiv){
+  $('#'+iddiv).attr('disabled',false);
+}

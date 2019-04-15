@@ -60,11 +60,25 @@ function __autoload($className) {
             var arrcv = consejosviaje.replace(/{|}|"/g,'').split(',');
             $('#consejosviaje').val(arrcv).trigger('change');
           }
-          var realizado = <?php echo $viaje->realizado; ?>;//NO FUNCIONA CON FALSE O NULL
+          var realizado = <?php
+            if ($viaje->realizado) {
+              echo 1;
+            }
+            else{
+              echo 0;
+            }
+           ?>;
           if (realizado == 1) {
             $('#realizado').attr('checked',true);
           }
-          var decoro = <?php echo $viaje->decoro; ?>;//NO FUNCIONA CON FALSE O NULL
+          var decoro = <?php
+          if ($viaje->decoro) {
+            echo 1;
+          }
+          else{
+            echo 0;
+          }
+          ?>;
           if (decoro == 1) {
             $('#decoro').attr('checked',true);
           }
@@ -87,13 +101,16 @@ function __autoload($className) {
   <body onload="cargaPersonas(ponSelPersonas,true);ponSelHonraDecoro();ponSelConsejosViaje();ponViaje();">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-    //  echo $cabecera;
+      echo $cabecera;
     ?>
     <div class="container" style="margin-top:6em;">
     <?php
       $fichaviaje = file_get_contents('./plantillas/ficha-viajes.html');
       $nuevoviaje = str_replace(array('%viaje%','%accion%','%fa%'),array('Modificar viaje','./datos/modificaviaje.php','fa-edit'),$fichaviaje);
       echo $nuevoviaje;
+
+      $accionesviaje = file_get_contents('./plantillas/acciones-viajes.html');
+      echo $accionesviaje;
     ?>
     </div>
     <?php

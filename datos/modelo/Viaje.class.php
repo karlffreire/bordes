@@ -87,8 +87,11 @@ class Viaje {
   }
   function getMercanciasTransportadas(){
     $arrid = array('idviajes' => $this->idviajes);
-    $mercancias = OperaBD::selec('datos.mercanciasybienes',array('*'),null,$arrid);
-    return $mercancias;
+    $mercancias = OperaBD::selec('datos.mercanciasybienes',array('mercancia','tipodemedida','unidades','tipomercancias','idmercanciasybienes'),null,$arrid);
+    if ($mercancias) {
+      return $mercancias;
+    }
+    return null;
   }
   function setViajeros($arridpersonas){
     foreach ($arridpersonas as $key => $idpersona) {
@@ -99,10 +102,13 @@ class Viaje {
   function getViajeros(){
     $viajeros;
     $idviajeros = OperaBD::selec('datos.viajeros',array('idpersonas'),null,array('idviajes'=>$this->idviajes));
-    foreach ($idviajeros as $key => $value) {
-      $viajeros[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value)[0];
+    if (count($idviajeros)>0) {
+      foreach ($idviajeros as $key => $value) {
+        $viajeros[] = OperaBD::selec('datos.personas',array('*'),'Persona',$value)[0];
+      }
+      return $viajeros;
     }
-    return $viajeros;
+    return null;
   }
   function setRecorrido($arrgids){//NOTA: el orden de $arrgids determina la secuencia del viaje
     $i=0;

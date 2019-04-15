@@ -12,47 +12,27 @@ function __autoload($className) {
     header('location:./entrando.php');
   }
   $menda = filter_var($credenciales[0], FILTER_SANITIZE_STRING);
+  if (!isset($_GET['p'])) {
+    header('location:./index.php');
+  }
+  $pagina = filter_var($_GET['p'],FILTER_SANITIZE_STRING);
+  $columnas;
+  $viaje = $_SESSION['viaje'];
 
-//SÓLO SE PUEDEN VER LOS VIAJES A PARTIR DE LAS CARTAS O PERSONAS
-if (isset($_SESSION['carta'])) {
-  $columnas = array('Origen','Destino','Fecha','idviajes');
-  $pretitulo ='Viajes referidos en la carta:';
-  $carta = $_SESSION['carta'];
-  $datoscrudo = $carta->getViajes();
-  if ($datoscrudo) {
-    $i=0;
-    foreach ($datoscrudo as $key => $viaje) {
-      $recorrido;
-      $recorrido = $viaje->getRecorrido();
-      if (isset($recorrido)) {
-        $datos[$i]['origen'] = $recorrido[0]['toponimo'];
-        $datos[$i]['destino'] = $recorrido[count($recorrido)-1]['toponimo'];
-      }
-      else{
-        $datos[$i]['origen'] = 'Por rellenar';
-        $datos[$i]['destino'] = 'Por rellenar';
-      }
-      $datos[$i]['fecha'] = $viaje->fechainicio;
-      $datos[$i]['idviajes'] = $viaje->idviajes;
-      ++$i;
-    }
+  if ($pagina == 'mercanciastransportadas') {
+    $columnas = array('Mercancia','Tipo de medida','Unidades','Tipo de mercancia','idcartas');
+    $datos = $viaje->getMercanciasTransportadas();
   }
   else {
-    $datos = null;
+    header('location:./index.php')
   }
-}
-else if (isset($_SESSION['persona'])) {
-  // HAY QUE ASEGURARSE DE NUNCA UNA SESIÓN TIENE CARTA Y PERSONA
-}
-else{
-  header('location:./index.php');
-}
+
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Viajes</title>
+    <title><?php echo $pagina; ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -63,18 +43,25 @@ else{
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
   </head>
-  <body onload="">
+  <body onload="cargaListados(<?php echo "'".$pagina."'" ?>)">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
     ?>
     <div class="container" style="margin-top:7em;">
       <div class="row">
-        <h3>
-          <?php echo $pretitulo.'<br>'.$carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos.' ('.$carta->fecha.')'?>
-        </h3>
+        <h2>
+          <?php echo 'Viaje desde '.$viaje->getRecorrido()[0]['toponimo'].': '.ucfirst($pagina); ?>
+        </h2>
       </div>
-      <div class="row" style="margin-top:2em;">
+      <div class="row">
+        <?php
+          $intro =  file_get_contents('./plantillas/ficha-'.$pagina.'.html');
+          echo $intro;
+        ?>
+        <hr>
+      </div>
+      <div class="row">
         <table class="table table-bordered table-list table-hover tabla-ppal">
           <thead>
             <tr>
@@ -101,7 +88,7 @@ else{
                     <?php
                     ++$i;
                     if ($i === count($fila)) {
-                      echo "<a href='./modif-viajes.php?id=$celda'; class='btn btn-default bot-pers'><em class='fa fa-pencil'></em><a><a href=javascript:alertaBorrado('./datos/borra-viajes.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
+                      echo "<a href=javascript:alertaBorrado('./datos/borra-$pagina.php?id=$celda'); class='btn btn-default bot-pers'><em class='fa fa-trash'></em><a>";
                     }
                     else{
                       echo $celda;
@@ -115,10 +102,8 @@ else{
           </tbody>
         </table>
       </div>
-      <div class="row" >
-        <a href="./modif-cartas.php?id=<?php echo $carta->idcartas; ?>" class="btn btn-primary" style="float:left;">Volver</a>
-        <a href="./nueva-viajes.php?" class="btn btn-success" style="float:right;">Añadir viaje</a>
-        <a href="./asigna-viajes.php?" class="btn btn-warning" style="float:right;margin-right:2em;">Asignar viaje</a>
+      <div class="row">
+        <a href="./modif-viajes.php?id=<?php echo $viaje->idviajes; ?>" class="btn btn-primary">Volver</a>
       </div>
     </div>
 
