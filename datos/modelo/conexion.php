@@ -13,8 +13,8 @@ abstract class ConBD {
 	  }
 		if ($mbd) {
 			 $_SESSION['proyecto']='bordes';
-			 setcookie('bordesarch',$menda.'#'.$contra, time() + (3600 * 4), "/");//pruebas
-			 //setcookie('bordes',$menda.'#'.$contra, time() + (3600 * 4), "/",'usig-proyectos.cchs.csic.es');//preproducción
+			 setcookie('bordesarch',$menda.'#'.$contra.'#bordesarch', time() + (3600 * 4), "/");//pruebas
+			 //setcookie('bordes',$menda.'#'.$contra.'#bordesarch', time() + (3600 * 4), "/",'usig-proyectos.cchs.csic.es');//preproducción
 			$mbd = null; //cierro conexion
 			return true;
 		}
@@ -32,8 +32,8 @@ abstract class ConBD {
 	}
 
 	public static function desconecta(){
-		setcookie('bordesarch', $menda.'#'.$contra, time() - 3600, "/");//pruebas
-		//setcookie('bordes', $menda.'#'.$contra, time() - 3600, "/",'usig-proyectos.cchs.csic.es');//preproducción
+		setcookie('bordesarch', $menda.'#'.$contra.'#bordesarch', time() - 3600, "/");//pruebas
+		//setcookie('bordes', $menda.'#'.$contra.'#bordesarch', time() - 3600, "/",'usig-proyectos.cchs.csic.es');//preproducción
 		$_SESSION = array();
 		if (ini_get("session.use_cookies")) {
 	    $params = session_get_cookie_params();
