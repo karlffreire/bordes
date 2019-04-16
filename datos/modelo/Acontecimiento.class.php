@@ -52,6 +52,26 @@ class Acontecimiento{
      }
      return $cartas;
    }
+   function setLugar($lugar,$nuevo=false){//REQUIERE UN ARRAY ASOCIATIVO CON nombre, tipolugar, gid. Modifica el objeto pero no la BD. Si no es nuevo, $lugar es sólo un id
+     if (!$nuevo) {
+       $this->lugaremision = $lugar;
+     }
+     else {
+       $mbd = ConBD::conectaBD();
+       $sentencia = $mbd->prepare("select nextval('datos.ciudadesnuevas_id_seq'::regclass);");
+       $sentencia->execute();
+       $idlugar = $sentencia->fetch()['nextval'];
+       $lugar['idlugares']=$idlugar;
+       $insertlugar = OperaBD::inserta('datos.lugares',$lugar);
+       $mbd = null;
+       if (!$insertlugar) {
+         $this->lugar = $idlugar;
+       }
+       else {
+         return 'Error al insertar el lugar';
+       }
+     }
+   }
 }
 
  ?>

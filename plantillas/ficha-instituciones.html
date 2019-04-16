@@ -1,0 +1,64 @@
+<h2>%acontecimiento%</h2>
+<form id="form-acontecimiento" class="" action="%accion%" method="post" style="margin-top:3em;">
+  <div class="row">
+      <div class="row">
+        <div class="form-group required">
+          <label class="control-label col-md-2">Nombre*</label>
+          <div class="controls col-md-10">
+            <input id="nombre" class="form-control" name="nombre" value="" style="margin-bottom: 10px" type="text" required />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label class="control-label col-md-2">Administración</label>
+          <div class="controls col-md-2">
+            <select id="administracion" type="text" class="form-control" name="administracion" style="margin-bottom: 10px">
+              <option value="Civil">Civil</option>
+              <option value="Religiosa">Religiosa</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <label id="eti-lug" class="control-label col-md-2">Sede</label>
+        <div id="divlugar-existente" class="controls col-md-10" style="margin-bottom: 10px">
+          <div class="controls col-md-5">
+            <select type="text" class="form-control selec-lugares" name="lugar-existente" id="lugar-existente" value="">
+              <option value=""></option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-default col-md-3" name="button" onclick="javascript:habLugarNuevo('divlugar-existente','lugar-nuevo');">Lugar nuevo</button>
+        </div>
+        <div id="lugar-nuevo" class="controls col-md-10 hidden">
+          <div class="controls col-md-3">
+            <input type="text" class="form-control lug" name="lugar-nuevo" id="lugar-nuevo" value="">
+          </div>
+          <div id="divtipolugar" class="controls col-md-3 lug" style="margin-bottom: 10px">
+            <select id="tipolugar" class="form-control" name="tipolugar" value="" >
+              <option value="" disabled selected>Tipo de lugar</option>
+              <option value="Lugar geográfico">Lugar geográfico</option>
+              <option value="Iglesia">Iglesia</option>
+              <option value="Puerto">Puerto</option>
+              <option value="Mina">Mina</option>
+            </select>
+          </div>
+          <div id="divpais" class="controls col-md-3 lug-emi" style="margin-bottom: 10px">
+            <select id="paisemi" class="form-control selec-pais" name="paisemision" value="" onchange="javascript:habToponimo(this,'geom');">
+              <option value=""></option>
+            </select>
+          </div>
+          <div class="controls col-md-3 ">
+            <select id="geom" class="form-control selec-topo lug-emi" name="geom" value="" disabled="disabled">
+              <option></option>
+            </select>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-1 col-md-offset-11">
+        <button id="boton-accion" type="submit" class="btn btn-success" style="padding:1.5em;border-radius:50%;"><i class="fa %fa% fa-2x"></i></button>
+      </div>
+    </div>
+  </div>
+</form>

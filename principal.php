@@ -52,6 +52,8 @@ function __autoload($className) {
   }
   unset($_SESSION['persona']);
   unset($_SESSION['carta']);
+  unset($_SESSION['acontecimiento']);
+  unset($_SESSION['institucion']);
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
