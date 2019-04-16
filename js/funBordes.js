@@ -183,7 +183,6 @@ function ponSelecLugares(datos){
 
 function habLugarNuevo(existente,nuevo){
   $('#'+existente).remove();
-  //$('#'+existente).hide();
   $('#'+nuevo).removeClass('hidden');
 }
 
@@ -373,4 +372,9 @@ function ponSortable(iddiv){
 
 function habBoton(iddiv){
   $('#'+iddiv).attr('disabled',false);
+}
+
+function validaNuevaPersona(){
+   var formulario = document.forms["form-persona"];
+   console.log(formulario);
 }

@@ -31,6 +31,7 @@ function __autoload($className) {
     $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
     $orden = array('nombre','apellidos','fechanacimiento');
     $datos = OperaBD::selec('datos.personas',$columnas,null,null,$orden);
+    unset($_SESSION['nuevapersona']);//esto está porque si cancelamos la inserción de una persona duplicada nos trae aquí
   }
   else if ($pagina == 'acontecimientos') {
     $paginamostrar = $pagina;

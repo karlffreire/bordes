@@ -2,13 +2,13 @@
 <form id="form-persona" class="" action="%accion%" method="post" style="margin-top:3em;">
   <div class="col-md-6">
     <div class="form-group required">
-      <label class="control-label col-md-4">Nombre</label>
+      <label class="control-label col-md-4">Nombre*</label>
       <div class="controls col-md-8 ">
-        <input id="nombre" class="form-control" name="nombre" value="" style="margin-bottom: 10px" type="text" />
+        <input id="nombre" class="form-control" name="nombre" value="" style="margin-bottom: 10px" type="text" required />
       </div>
-      <label class="control-label col-md-4">Apellidos</label>
+      <label class="control-label col-md-4">Apellidos*</label>
       <div class="controls col-md-8 ">
-        <input id="apellidos" class="form-control" name="apellidos" value="" style="margin-bottom: 10px" type="text" />
+        <input id="apellidos" class="form-control" name="apellidos" value="" style="margin-bottom: 10px" type="text" required />
       </div>
       <div class="form-group">
         <label class="control-label col-md-4">Fecha nacimiento</label>
@@ -40,9 +40,9 @@
   </div>
   <div class="col-md-6">
     <div class="form-group">
-      <label class="control-label col-md-4">Género</label>
+      <label class="control-label col-md-4">Género*</label>
       <div class="controls col-md-8 ">
-           <select id="genero" class="form-control" name="genero" value="" style="margin-bottom: 10px">
+           <select id="genero" class="form-control" name="genero" value="" style="margin-bottom: 10px"  required>
               <option value=""></option>
               <option value="Mujer">Mujer</option>
               <option value="Hombre">Hombre</option>

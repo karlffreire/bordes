@@ -36,7 +36,7 @@ function __autoload($className) {
     <div class="container" style="margin-top:6em;">
     <?php
       $fichapersona = file_get_contents('./plantillas/ficha-personas.html');
-      $nuevapersona = str_replace(array('%persona%','%accion%','%fa%'),array('Nueva persona','./datos/intropersona.php','fa-user-plus'),$fichapersona);
+      $nuevapersona = str_replace(array('%persona%','%accion%','%fa%'),array('Nueva persona','./datos/intropersona.php?forzar=false','fa-user-plus'),$fichapersona);
       echo $nuevapersona;
     ?>
     </div>
