@@ -105,8 +105,18 @@ function __autoload($className) {
     ?>
     <div class="container" style="margin-top:6em;">
     <?php
+      $recorrido;
+      $recorrido = $viaje->getRecorrido();
+      if (isset($recorrido)) {
+        $origen = $recorrido[0]['toponimo'];
+        $destino = $recorrido[count($recorrido)-1]['toponimo'];
+      }
+      else{
+        $origen = 'Origen no especificado';
+        $destino = 'Destino no especificado';
+      }
       $fichaviaje = file_get_contents('./plantillas/ficha-viajes.html');
-      $nuevoviaje = str_replace(array('%viaje%','%accion%','%fa%'),array('Modificar viaje','./datos/modificaviaje.php','fa-edit'),$fichaviaje);
+      $nuevoviaje = str_replace(array('%viaje%','%accion%','%fa%'),array('Modificar viaje de '.$origen.' a '.$destino,'./datos/modificaviaje.php','fa-edit'),$fichaviaje);
       echo $nuevoviaje;
 
       $accionesviaje = file_get_contents('./plantillas/acciones-viajes.html');

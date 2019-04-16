@@ -12,11 +12,8 @@ function __autoload($className) {
     header('location:./entrando.php');
   }
   $menda = filter_var($credenciales[0], FILTER_SANITIZE_STRING);
-
   $viaje = $_SESSION['viaje'];
-var_dump($viaje);
-
-
+  $recorrido = $viaje->getRecorrido();
  ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -33,19 +30,53 @@ var_dump($viaje);
     <link rel="stylesheet" type="text/css" href="./css/estilo_index.css">
     <script type="text/javascript" src="./js/funBordes.js"></script>
     <script type="text/javascript">
-      function anyadeEtapa(){
-        var idtoponimo = $('#puntoetapa').val();
-        var toponimo = $("#puntoetapa option:selected").text();
-        $('#puntos').append($('<li>').attr('id',idtoponimo).addClass('list-group-item').html(toponimo));
+      function anyadeEtapa(gid=false,topo=false){
+        if (gid) {
+          var idtoponimo = gid;
+        }
+        else{
+          var idtoponimo = $('#puntoetapa').val();
+        }
+        if (topo) {
+          var toponimo = topo;
+        }
+        else{
+          var toponimo = $("#puntoetapa option:selected").text();
+        }
+        var quita = $('<div>').html('X').addClass('col-md-2').attr('style','cursor:pointer').on('click',function(){$(this).parent().parent().remove()});
+        var fila = $('<div>').addClass('row').append($('<div>').addClass('col-md-10').html(toponimo)).append(quita);
+        $('#puntos').append($('<li>').attr('id',idtoponimo).addClass('list-group-item').append(fila));
       }
+      function grabaRecorrido(){
+        var ids = [];
+        var etapas = $('#puntos').children();
+        for (var i = 0; i < etapas.length; i++) {
+          ids.push(etapas[i].id);
+        }
+        $('#idsetapas').val(ids);
+        $('#form-recorrido').trigger('submit');
+      }
+      function ponRecorrido(){
+        <?php if ($recorrido): ?>
+          <?php foreach ($recorrido as $key => $etapa): ?>
+            anyadeEtapa(<?php echo $etapa['gid'].',"'.$etapa['toponimo'].'"'; ?>);
+          <?php endforeach; ?>
+        <?php endif; ?>
+      }
+
+
     </script>
   </head>
-  <body onload="javascript:cargaPaises(ponSelPais);ponSortable('puntos');">
+  <body onload="javascript:cargaPaises(ponSelPais);ponSortable('puntos');ponRecorrido();">
     <?php
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
-//      echo $cabecera;
+      echo $cabecera;
     ?>
     <div class="container" style="margin-top:7em;">
+      <form id="form-recorrido" class="hidden" action="./datos/introrecorrido.php" method="post">
+        <input id="idsetapas" type="text" name="idsetapas" value="">
+        <input type="submit">
+      </form>
       <div class="row">
         <h2>
         Especificar recorrido
@@ -65,15 +96,20 @@ var_dump($viaje);
         <button id="nuevaetapa" class="btn btn-success col-md-2" name="button" onclick="javascript:anyadeEtapa();" disabled="disabled">Añadir etapa</button>
       </div>
       <div class="row" style="margin-top:2em;">
-        <div class="col-md-6 col-md-offset-3 panel panel-default" style="border:none;">
+        <div class="col-md-6 panel panel-default" style="border:none;">
           <div class="panel-body">
             <ul  id="puntos" class="list-group" style="user-select: none;">
             </ul>
           </div>
         </div>
+        <div class="col-md-6 panel panel-default" style="border:none;">
+          <div class="panel-body">
+            <p>Ordena las etapas situando el origen arriba y el destino abajo</p>
+            <button class="btn btn-success" name="button" onclick="grabaRecorrido();">Grabar recorrido</button>
+          </div>
+        </div>
       </div>
       <div class="row">
-        <button class="btn btn-success" name="button" style="float:right">Grabar recorrido</button>
         <a href="./modif-viajes.php?id=<?php echo $viaje->idviajes; ?>" class="btn btn-primary">Volver</a>
       </div>
     </div>

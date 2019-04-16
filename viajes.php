@@ -118,7 +118,7 @@ else{
       <div class="row" >
         <a href="./modif-cartas.php?id=<?php echo $carta->idcartas; ?>" class="btn btn-primary" style="float:left;">Volver</a>
         <a href="./nueva-viajes.php?" class="btn btn-success" style="float:right;">Añadir viaje</a>
-        <a href="./asigna-viajes.php?" class="btn btn-warning" style="float:right;margin-right:2em;">Asignar viaje</a>
+        <a href="#" class="btn btn-warning" disabled="disabled" style="float:right;margin-right:2em;">Asignar viaje</a>
       </div>
     </div>
 
