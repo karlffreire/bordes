@@ -39,6 +39,22 @@ html{
   width: 90%;
 }
 
+.hgis{
+  color:#7c2d3a;
+}
+
+.hgis a{
+  color:#7c2d3a;
+}
+
+.geonames{
+  color:#454545;
+}
+
+.geonames a{
+  color:#454545;
+}
+
 .tabla-ppal th{
 	color:#454545;
 }

@@ -23,7 +23,7 @@ $terminos_limpio = rtrim($terminos,'and ');
 
 $mbd = ConBD::conectaBD();
 try {
-  foreach ($mbd->query("SELECT toponimo as text,gid as id FROM datos.geometrias WHERE $terminos_limpio and idpaises = $idpais ORDER BY toponimo;") as $fila) {
+  foreach ($mbd->query("SELECT toponimo as text,gid as id,idnomenclator,idexterno FROM datos.geometrias WHERE $terminos_limpio and idpaises = $idpais ORDER BY toponimo;") as $fila) {
     $resultado[] =$fila;
   }
 } catch (PDOException $e) {

@@ -48,6 +48,15 @@ function ponSelecPais(datos){
   return r;
 }
 
+function coloreaToponimos (data) {
+ if (data.idnomenclator == 2) {
+    return $('<span class="hgis">'+data.text+' (<a href="https://www.hgis-indias.net/dokuwiki/doku.php?id='+data.idexterno+'" target="_blank">Ver en HGIS-indias</a>)</span>');
+  }
+  else if (data.idnomenclator == 1){
+    return $('<span class="geonames">'+data.text+' (<a href="http://www.geonames.org/'+data.idexterno+'" target="_blank">Ver en geonames</a>)</span>');
+  }
+};
+
 function habToponimo(origen,idsel){
 	var campo = document.getElementById(idsel);
 	campo.disabled = false;
@@ -58,6 +67,8 @@ function ponSelecTopo(origen,idsel){
 	var idpais = document.getElementById(origen.id).value;
 	$("#"+idsel).select2({
 		minimumInputLength: 3,
+    templateResult: coloreaToponimos,
+    templateSelection: coloreaToponimos,
 		ajax: {
 			delay: 450,
 			type: 'GET',
