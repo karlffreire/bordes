@@ -24,7 +24,7 @@ function __autoload($className) {
     $datos = $viaje->getMercanciasTransportadas();
   }
   else {
-    header('location:./index.php')
+    header('location:./index.php');
   }
 
  ?>

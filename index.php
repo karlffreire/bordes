@@ -14,7 +14,10 @@ foreach ($grupos as $grupo) {
 };
 
 $edit = $_SESSION["editor"];
-
+unset($_SESSION['persona']);
+unset($_SESSION['carta']);
+unset($_SESSION['acontecimiento']);
+unset($_SESSION['institucion']);
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +50,7 @@ $edit = $_SESSION["editor"];
       </ul>
     </div>
   </nav>
-<div class="container">
+<div class="container" style="margin-bottom:5em;">
   <div class="row" style="margin-top:150px;">
     <div class="col-md-8">
       <div class="row" style="text-align:center;">
@@ -98,7 +101,11 @@ $edit = $_SESSION["editor"];
         </a>
         <a href="#" class="list-group-item">
           <h4 class="list-group-item-heading">Otros elementos</h4>
-          <p class="list-group-item-text">Los acontecimientos y las instituciones se deben introducir previamente para que aparezcan en los desplegables de cartas y personas.</p><p>El resto de elementos, mercancías, menciones, objetos, cargos, títulos, parientes o propiedades se rellenan desde las opciones de modificar cartas y personas.</p>
+          <p class="list-group-item-text">Los acontecimientos y las instituciones se deben introducir previamente para que aparezcan en los desplegables de cartas y personas.</p>
+        </a>
+        <a href="#" class="list-group-item">
+          <h4 class="list-group-item-heading">Notas</h4>
+          <p class="list-group-item-text">El resto de elementos, mercancías, menciones, objetos, cargos, títulos, parientes o propiedades se rellenan desde las opciones de modificar cartas y personas.</p><p class="list-group-item-text">Es obligatorio rellenar todos los campos con * </p>
         </a>
       </div>
     </div>

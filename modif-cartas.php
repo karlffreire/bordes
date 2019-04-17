@@ -39,7 +39,7 @@ function __autoload($className) {
         $('#identificador').val(<?php echo '"'.$carta->identificador.'"' ?>);
         $('#pagina').val(<?php echo '"'.$carta->pagina.'"' ?>);
         $('#numeroregistro').val(<?php echo '"'.$carta->numeroregistro.'"' ?>);
-        $('#palabrasclave').val(<?php echo '"'.ltrim(rtrim($carta->palabrasclave,'}'),'{').'"' ?>);
+        $('#palabrasclave').val(<?php echo "'".ltrim(rtrim($carta->palabrasclave,'}'),'{')."'" ?>);
         $('#fecha').val(<?php echo '"'.$carta->fecha.'"' ?>);
         $('select#confianzafecha').val(<?php echo '"'.$carta->confianzafecha.'"' ?>);
         $('#asunto').val(<?php echo '"'.$carta->asunto.'"' ?>);

@@ -39,7 +39,7 @@ function __autoload($className) {
           $('#fechafin').val(<?php echo '"'.$viaje->fechafin.'"' ?>);
           $('select#confianzafechafin').val(<?php echo '"'.$viaje->confianzafechafin.'"'; ?>);
           $('#motivoviaje').val(<?php echo '"'.$viaje->motivoviaje.'"' ?>);
-          $('#embarcaciones').val(<?php echo '"'.ltrim(rtrim($viaje->embarcaciones,'}'),'{').'"'; ?>);
+          $('#embarcaciones').val(<?php echo "'".ltrim(rtrim($viaje->embarcaciones,'}'),'{')."'"; ?>);
           $('#observacionesdecoro').val(<?php echo '"'.$viaje->observacionesdecoro.'"'; ?>);
           $('#observaciones').val(<?php echo '"'.$viaje->observaciones.'"'; ?>);
           var honraydecoro = <?php if (isset($viaje->honraydecoro)) {
