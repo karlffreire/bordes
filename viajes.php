@@ -68,11 +68,9 @@ else{
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
     ?>
-    <div class="container" style="margin-top:7em;">
+    <div class="container" style="margin-top:7em;margin-bottom:5em;">
       <div class="row">
-        <h3>
-          <?php echo $pretitulo.'<br>'.$carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos.' ('.$carta->fecha.')'?>
-        </h3>
+          <?php echo '<h2>'.$pretitulo.'</h2><h3>'.$carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos.' ('.$carta->fecha.')</h3>'?>
       </div>
       <div class="row" style="margin-top:2em;">
         <table class="table table-bordered table-list table-hover tabla-ppal">

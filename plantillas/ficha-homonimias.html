@@ -2,6 +2,14 @@
   <div class="row">
     <div class="col-md-10">
       <div class="form-group required">
+        <label class="control-label col-md-1">Tipo</label>
+        <div class="controls col-md-3">
+          <select id="tipohomonimia" type="text" class="form-control" name="tipohomonimia" style="margin-bottom: 10px" onchange="javascript:selTipoHomonimia()">
+            <option value=""></option>
+            <option value="Nombre propio">Nombre propio</option>
+            <option value="Apodo">Apodo</option>
+          </select>
+        </div>
         <label class="control-label col-md-1">Nombre</label>
         <div class="controls col-md-2 ">
           <input id="nombre" class="form-control" name="nombre" value="" style="margin-bottom: 10px" type="text" />
@@ -9,13 +17,6 @@
         <label for="apellidos" class="control-label col-md-1">Apellidos</label>
         <div class="controls col-md-3 ">
           <input id="apellidos" class="form-control" name="apellidos" value="" style="margin-bottom: 10px" type="text" />
-        </div>
-        <label class="control-label col-md-1">Tipo</label>
-        <div class="controls col-md-3">
-          <select id="tipohomonimia" type="text" class="form-control" name="tipohomonimia" style="margin-bottom: 10px">
-            <option value="Nombre propio">Nombre propio</option>
-            <option value="Apodo">Apodo</option>
-          </select>
         </div>
       </div>
     </div>

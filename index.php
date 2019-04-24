@@ -50,9 +50,9 @@ unset($_SESSION['institucion']);
       </ul>
     </div>
   </nav>
-<div class="container" style="margin-bottom:5em;">
+<div class="container-fluid" style="margin-bottom:5em;">
   <div class="row" style="margin-top:150px;">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="row" style="text-align:center;">
         <div class="col-lg-6">
           <div class="icon-menu-init">
@@ -84,7 +84,7 @@ unset($_SESSION['institucion']);
         <p><a class="btn btn-primary" href="./principal.php?p=instituciones&f=" role="button">Instituciones</a></p>
       </div>
     </div>
-    <div class="col-md-4" style="text-align:center;">
+    <div class="col-md-3" style="text-align:center;">
       <h2>Flujo de trabajo</h2>
       <div class="list-group"  style="margin-top:2em;">
         <a href="#" class="list-group-item">
@@ -109,10 +109,22 @@ unset($_SESSION['institucion']);
         </a>
       </div>
     </div>
+    <div class="col-md-3" style="text-align:center;">
+      <h2>Lugares geográficos</h2>
+      <p>La base de datos cuenta con un total de 143.686 topónimos cargados, procedentes de dos fuentes distintas.</p><p>A la hora de seleccionarlos, el usuario de Bordes del Archivo puede distinguir a qué nomenclátor pertenece cada topónimo y acceder al registro en la base de datos original.</p>
+      <div class="list-group"  style="margin-top:2em;">
+        <a href="https://www.geonames.org/" target="_blank" class="list-group-item">
+          <h4 class="list-group-item-heading">Geonames</h4>
+          <p class="list-group-item-text">Base de datos de nombres geográficos actuales. Se han incorporado a la base de datos los puntos de localidades.</p>
+        </a>
+        <a href="https://www.hgis-indias.net/" target="_blank" class="list-group-item">
+          <h4 class="list-group-item-heading">HGIS de las Indias</h4>
+          <p class="list-group-item-text">El sistema de información histórico-geográfica (HGIS) de las Indias (1701-1808) es un proyecto de la Universidad de Graz, financiado con el apoyo del fondo para investigaciones científicas de la República de Austria (FWF) entre 2015 y 2017.</p>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
-
-
 <footer>
   <p style="padding-top: 10px;">Unidad de SIG<a href="http://unidadsig.cchs.csic.es/sig/" style="margin-left: 80px;"><img src="./img/logo_usig.png" style="height: 35px;" /></a></p>
 </footer>

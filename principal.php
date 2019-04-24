@@ -46,7 +46,7 @@ function __autoload($className) {
     $columnasb = array('instituciones.nombre','administracion','lugares.nombre as sede','idinstituciones');
     $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
     $orden = array('nombre');
-    $datos = OperaBD::selec('datos.instituciones inner join datos.lugares on sede = lugares.idlugares',$columnasb,null,null,$orden);
+    $datos = OperaBD::selec('datos.instituciones left join datos.lugares on sede = lugares.idlugares',$columnasb,null,null,$orden);
   }
   else {
     header('location:./index.php');

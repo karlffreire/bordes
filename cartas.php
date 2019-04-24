@@ -19,14 +19,17 @@ function __autoload($className) {
   $columnas;
   $carta = $_SESSION['carta'];
   if ($pagina == 'objetos') {
+    $paginamostrar = 'Objetos';
     $columnas = array('Objetos','idobjetos');
     $datos = $carta->getObjetos();
   }
   else if ($pagina == 'mercanciassolicitadas') {
+    $paginamostrar = 'Mercancias solicitadas';
     $columnas = array('Mercancia','Tipo de medida','Unidades','Tipo de mercancia','idcartas');
     $datos = $carta->getMercanciasSolicitadas();
   }
   else if ($pagina == 'menciones') {
+    $paginamostrar = 'Menciones';
     $columnas = array('Persona','idpersonas');
     $datoscrudo = $carta->getMenciones();
     if ($datoscrudo) {
@@ -42,6 +45,7 @@ function __autoload($className) {
       }
   }
   else if ($pagina == 'acontecimientosdescritos') {
+    $paginamostrar = 'Acontecimientos descritos';
     $columnas = array('Nombre','Fecha','idacontecimiento');
     $datoscrudo = $carta->getAcontecimientos();
     if ($datoscrudo) {
@@ -83,10 +87,10 @@ function __autoload($className) {
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
     ?>
-    <div class="container" style="margin-top:7em;">
+    <div class="container" style="margin-top:7em;margin-bottom:5em;">
       <div class="row">
         <h2>
-          <?php echo $carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos.' ('.$carta->fecha.'): '.ucfirst($pagina); ?>
+          <?php echo ucfirst($paginamostrar).' en la carta:<br><h3>'.$carta->getEmisor()->nombre.' '.$carta->getEmisor()->apellidos.' a '.$carta->getReceptor()->nombre.' '.$carta->getReceptor()->apellidos.' ('.$carta->fecha.')</h3>'; ?>
         </h2>
       </div>
       <div class="row">

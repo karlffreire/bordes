@@ -16,23 +16,29 @@ foreach ($_POST as $key => $value) {
     $_POST[$key] = NULL;
   }
 }
-$carta = new Carta(true,$_POST);
-if ($_POST['lugaremision-existente']) {
-  $carta->setLugarEmision($_POST['lugaremision-existente'],false);
+if (!isset($_POST['lugaremision-existente']) && !isset($_POST['lugaremision-nuevo'])) {
+  //echo '<script type="text/javascript">alert("Es obligatorio rellenar el lugar de emisión");history.go(-1);</script>';
+    echo '<script type="text/javascript">if (confirm("Es obligatorio rellenar el lugar de emisión") == true) {window.location.href = "javascript:history.go(-1)";} else {window.location.href = "javascript:history.go(-1)";}</script>';
 }
-else if (isset($_POST['lugaremision-nuevo'])){
-  $lugar = array('nombre' =>$_POST['lugaremision-nuevo'] ,'tipolugar'=>$_POST['tipolugar-emi'],'gid'=>$_POST['geomemision'] );
-  $carta->setLugarEmision($lugar,true);
-}
-if ($_POST['lugarrecepcion-existente']) {
-  $carta->setLugarRecepcion($_POST['lugarrecepcion-existente'],false);
-}
-else if (isset($_POST['lugarrecepcion-nuevo'])) {
-  $lugar = array('nombre' =>$_POST['lugarrecepcion-nuevo'] ,'tipolugar'=>$_POST['tipolugar-rec'],'gid'=>$_POST['geomrecepcion'] );
-  $carta->setLugarRecepcion($lugar,true);
-}
+else {
+  $carta = new Carta(true,$_POST);
+  if ($_POST['lugaremision-existente']) {
+    $carta->setLugarEmision($_POST['lugaremision-existente'],false);
+  }
+  else if (isset($_POST['lugaremision-nuevo'])){
+    $lugar = array('nombre' =>$_POST['lugaremision-nuevo'] ,'tipolugar'=>$_POST['tipolugar-emi'],'gid'=>$_POST['geomemision'] );
+    $carta->setLugarEmision($lugar,true);
+  }
+  if ($_POST['lugarrecepcion-existente']) {
+    $carta->setLugarRecepcion($_POST['lugarrecepcion-existente'],false);
+  }
+  else if (isset($_POST['lugarrecepcion-nuevo'])) {
+    $lugar = array('nombre' =>$_POST['lugarrecepcion-nuevo'] ,'tipolugar'=>$_POST['tipolugar-rec'],'gid'=>$_POST['geomrecepcion'] );
+    $carta->setLugarRecepcion($lugar,true);
+  }
 
-$carta->almacena();
+  $carta->almacena();
 
-header('location:../modif-cartas.php?id='.$carta->idcartas);
+  header('location:../modif-cartas.php?id='.$carta->idcartas);
+}
  ?>

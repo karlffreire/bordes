@@ -72,7 +72,7 @@ function __autoload($className) {
       $cabecera = str_replace('%menda%', $menda, file_get_contents('./plantillas/cabecera.html'));
       echo $cabecera;
     ?>
-    <div class="container" style="margin-top:7em;">
+    <div class="container" style="margin-top:7em;margin-bottom:5em;">
       <div class="row">
         <h2>
           <?php echo $persona->nombre.' '.$persona->apellidos.': '.ucfirst($pagina); ?>

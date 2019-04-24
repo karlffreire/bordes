@@ -50,7 +50,16 @@ function ponSelecPais(datos){
 
 function coloreaToponimos (data) {
  if (data.idnomenclator == 2) {
-    return $('<span class="hgis">'+data.text+' (<a href="https://www.hgis-indias.net/dokuwiki/doku.php?id='+data.idexterno+'" target="_blank">Ver en HGIS-indias</a>)</span>');
+    return $('<span class="hgis">'+data.text+' (HGIS-indias)</span>');
+  }
+  else if (data.idnomenclator == 1){
+    return $('<span class="geonames">'+data.text+' ( Geonames)</span>');
+  }
+};
+
+function toponimoSeleccionado (data) {
+ if (data.idnomenclator == 2) {
+    return $('<span class="hgis">'+data.text+' (<a href="https://www.hgis-indias.net/dokuwiki/doku.php?id=gazetteer:'+data.idexterno+'" target="_blank">Ver en HGIS-indias</a>)</span>');
   }
   else if (data.idnomenclator == 1){
     return $('<span class="geonames">'+data.text+' (<a href="http://www.geonames.org/'+data.idexterno+'" target="_blank">Ver en geonames</a>)</span>');
@@ -68,7 +77,7 @@ function ponSelecTopo(origen,idsel){
 	$("#"+idsel).select2({
 		minimumInputLength: 3,
     templateResult: coloreaToponimos,
-    templateSelection: coloreaToponimos,
+    templateSelection: toponimoSeleccionado,
 		ajax: {
 			delay: 450,
 			type: 'GET',
@@ -385,7 +394,21 @@ function habBoton(iddiv){
   $('#'+iddiv).attr('disabled',false);
 }
 
+function deshabBoton(iddiv){
+  $('#'+iddiv).attr('disabled',true);
+}
+
 function validaNuevaPersona(){
    var formulario = document.forms["form-persona"];
    console.log(formulario);
+}
+
+function selTipoHomonimia(){
+  var tipohom = $('#tipohomonimia').val();
+  if (tipohom == 'Apodo') {
+    deshabBoton('apellidos');
+  }
+  else {
+    habBoton('apellidos');
+  }
 }
