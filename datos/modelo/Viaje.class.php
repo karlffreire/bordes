@@ -79,7 +79,12 @@ class Viaje {
   }
   function borra(){
     $cual = array('idviajes'=>$this->idviajes);
-    OperaBD::borra('datos.viajes',$cual);
+    OperaBD::borra('datos.viajeros',$cual);
+    $cual = array('idviajes'=>$this->idviajes);
+    OperaBD::borra('datos.objetosviajes',$cual);
+    $cual = array('idviajes'=>$this->idviajes);
+    $resultado = OperaBD::borra('datos.viajes',$cual);
+    return $resultado;
   }
   function setMercanciaTransportada($arrmercancia){
     $arrmercancia['idviajes'] = $this->idviajes;
