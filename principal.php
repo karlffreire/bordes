@@ -19,10 +19,10 @@ function __autoload($className) {
   $columnas;
   if ($pagina == 'cartas') {
     $paginamostrar = $pagina;
-    $columnas = array('fecha','identificador','asunto','remitente','destinatario','idcartas');
-    $columnasb = array('fecha','identificador','asunto',"emisor.nombre||' '||emisor.apellidos as emisor","receptor.nombre||' '||receptor.apellidos as receptor",'idcartas');
+    $columnas = array('fecha','registro','asunto','remitente','destinatario','idcartas');
+    $columnasb = array('fecha','numeroregistro','asunto',"emisor.nombre||' '||emisor.apellidos as emisor","receptor.nombre||' '||receptor.apellidos as receptor",'idcartas');
     $filtros = unserialize(filter_var($_GET['f'],FILTER_SANITIZE_STRING));
-    $orden = array('fecha','identificador');
+    $orden = array('fecha','numeroregistro');
     $datos = OperaBD::selec('datos.cartas inner join datos.personas emisor on cartas.idemisor = emisor.idpersonas left join datos.personas receptor on cartas.idreceptor = receptor.idpersonas',$columnasb,null,null,$orden);
   }
   else if ($pagina == 'personas') {
